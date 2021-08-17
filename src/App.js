@@ -1,10 +1,7 @@
 import React from "react";
-import Login from "./Login";
+import Login from "./login";
+import Client from "./client";
 
-const App = () => (
-  <>
-    <Login />
-  </>
-);
+const App = () => <Client />;
 
 export default App;
