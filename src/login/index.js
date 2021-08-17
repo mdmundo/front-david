@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { navigate } from "@reach/router";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import GoogleIcon from "./GoogleIcon";
@@ -28,15 +29,18 @@ const Login = () => {
     <>
       <Container component="main" className={classes.main} maxWidth="sm">
         <div className={classes.upper}>
-          <Typography component="h1" variant="h3">
+          <Typography component="h1" variant="h2">
             Entre com sua conta
           </Typography>
           <Button
             className={classes.login}
+            variant="contained"
+            color="primary"
             startIcon={<GoogleIcon />}
             onClick={() => {
               setError("Uma mensagem útil sobre o erro ocorrido.");
               setOpen(true);
+              // navigate(`/clients`);
             }}
           >
             Entrar com Google
