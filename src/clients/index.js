@@ -1,5 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { navigate } from "@reach/router";
+import { makeStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function PrimarySearchAppBar() {
+const Clients = () => {
   const classes = useStyles();
 
   return (
@@ -33,10 +34,18 @@ export default function PrimarySearchAppBar() {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <IconButton edge="end" color="inherit">
+        <IconButton
+          edge="end"
+          color="inherit"
+          // onClick={() => {
+          //   navigate(`/clients/1`);
+          // }}
+        >
           <ExitToAppIcon />
         </IconButton>
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export { Clients as default };
