@@ -9,10 +9,15 @@ import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsBrightnessIcon from "@material-ui/icons/SettingsBrightness";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Container from "@material-ui/core/Container";
+import Table from "./Table";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1
+  },
+  table: {
+    paddingTop: theme.spacing(10)
   }
 }));
 
@@ -20,31 +25,36 @@ const Clients = () => {
   const classes = useStyles();
 
   return (
-    <AppBar>
-      <Toolbar>
-        <Typography variant="h6" noWrap>
-          Clientes
-        </Typography>
-        <div className={classes.grow} />
-        <IconButton color="inherit">
-          <SettingsBrightnessIcon />
-        </IconButton>
-        <IconButton color="inherit">
-          <Badge badgeContent={3} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <IconButton
-          edge="end"
-          color="inherit"
-          // onClick={() => {
-          //   navigate(`/clients/1`);
-          // }}
-        >
-          <ExitToAppIcon />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+    <div>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6" noWrap>
+            Clientes
+          </Typography>
+          <div className={classes.grow} />
+          <IconButton color="inherit">
+            <SettingsBrightnessIcon />
+          </IconButton>
+          <IconButton color="inherit">
+            <Badge badgeContent={3} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            edge="end"
+            color="inherit"
+            // onClick={() => {
+            //   navigate(`/clients/1`);
+            // }}
+          >
+            <ExitToAppIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Container className={classes.table} maxWidth="md">
+        <Table />
+      </Container>
+    </div>
   );
 };
 
