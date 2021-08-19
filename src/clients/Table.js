@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
@@ -17,39 +16,73 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Table = () => {
-  useEffect(() => {}, []);
-
+const Table = ({ data }) => {
   const classes = useStyles();
 
   const columns = [
     {
-      name: "name",
-      label: "Name"
+      name: "fantasy",
+      label: "Nome Fantasia"
     },
     {
-      name: "title",
-      label: "Modified Title Label"
+      name: "type",
+      label: "CNPJ Cadastrado?",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) =>
+          value === "cnpj" ? "Sim" : "Não"
+      }
     },
     {
-      name: "location",
-      label: "Location"
+      name: "cnpj",
+      label: "CNPJ"
     },
     {
-      name: "age",
-      Label: "Age"
+      name: "cpf",
+      label: "CPF"
     },
     {
-      name: "salary",
-      label: "Salary"
+      name: "ie",
+      label: "Inscrição Estadual"
     },
     {
-      name: "phone.home",
-      label: "Home Phone"
+      name: "rs",
+      label: "Razão Social"
     },
     {
-      name: "phone.cell",
-      label: "Cell Phone #"
+      name: "category",
+      label: "Categoria"
+    },
+    {
+      name: "branch",
+      label: "Ramo de Atividade"
+    },
+    {
+      name: "taxing",
+      label: "Tributação"
+    },
+    {
+      name: "address",
+      label: "Endereço"
+    },
+    {
+      name: "city",
+      label: "Município"
+    },
+    {
+      name: "state",
+      label: "Unidade Federativa"
+    },
+    {
+      name: "postal",
+      label: "CEP"
+    },
+    {
+      name: "since",
+      label: "Início de Atividades"
+    },
+    {
+      name: "member",
+      label: "Cliente Desde"
     },
     {
       name: "edit",
@@ -69,41 +102,6 @@ const Table = () => {
           </Tooltip>
         )
       }
-    }
-  ];
-
-  const data = [
-    {
-      name: "Gabby George",
-      title: "Business Analyst",
-      location: "Minneapolis",
-      age: 30,
-      salary: "$100,000",
-      phone: { home: "867-5309", cell: "123-4567" }
-    },
-    {
-      name: "Aiden Lloyd",
-      title: "Business Consultant",
-      location: "Dallas",
-      age: 55,
-      salary: "$200,000",
-      phone: { home: "867-5310", cell: "123-4568" }
-    },
-    {
-      name: "Jaden Collins",
-      title: "Attorney",
-      location: "Santa Ana",
-      age: 27,
-      salary: "$500,000",
-      phone: { home: "867-5311", cell: "123-4569" }
-    },
-    {
-      name: "Franky Rees",
-      title: "Business Analyst",
-      location: "St. Petersburg",
-      age: 22,
-      salary: "$50,000",
-      phone: { home: "867-5312", cell: "123-4569" }
     }
   ];
 

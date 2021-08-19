@@ -10,7 +10,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SettingsBrightnessIcon from "@material-ui/icons/SettingsBrightness";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Container from "@material-ui/core/Container";
-import Table from "./Table";
+import LoadTable from "./LoadTable";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -46,13 +46,13 @@ const Clients = () => {
             // onClick={() => {
             //   navigate(`/clients/1`);
             // }}
-          >     
+          >
             <ExitToAppIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Container className={classes.table} maxWidth="md">
-        <Table />
+        <LoadTable />
       </Container>
     </div>
   );
