@@ -1,5 +1,6 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { useEffect, useState } from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@material-ui/core/Grid";
 import axios from "./axios";
 import Table from "./Table";
 
@@ -15,7 +16,13 @@ const LoadTable = () => {
       });
   }, []);
 
-  return axiosData ? <Table data={axiosData.data} /> : <CircularProgress />;
+  return axiosData ? (
+    <Table data={axiosData.data} />
+  ) : (
+    <Grid container direction="row" justifyContent="center" alignItems="center">
+      <CircularProgress />
+    </Grid>
+  );
 };
 
 export { LoadTable as default };
