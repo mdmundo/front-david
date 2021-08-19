@@ -33,27 +33,13 @@ const Table = () => {
         empty: true,
         print: false,
         searchable: false,
-        customBodyRenderLite: (dataIndex, rowIndex) => {
-          return (
-            <Grid
-              container
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
-              <Tooltip title="Editar">
-                <IconButton className={classes.icon} color="textSecondary">
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Detalhes">
-                <IconButton className={classes.icon} color="textSecondary">
-                  <FindInPageIcon />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          );
-        }
+        customBodyRenderLite: (dataIndex, rowIndex) => (
+          <Tooltip title="Editar">
+            <IconButton className={classes.icon} color="textSecondary">
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        )
       }
     }
   ];
