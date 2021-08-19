@@ -1,9 +1,11 @@
 import MUIDataTable from "mui-datatables";
+// Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
+// Demo: https://material-ui.com/components/grid/
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,8 +27,13 @@ const Table = () => {
     {
       name: "Ações",
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updateValue) => {
+        filter: false,
+        sort: false,
+        download: false,
+        empty: true,
+        print: false,
+        searchable: false,
+        customBodyRenderLite: (dataIndex, rowIndex) => {
           return (
             <Grid
               container
@@ -59,7 +66,42 @@ const Table = () => {
   ];
 
   const options = {
-    filterType: "checkbox"
+    filterType: "checkbox",
+    print: false,
+    textLabels: {
+      body: {
+        noMatch: "Desculpe, nenhum registro correspondente encontrado",
+        toolTip: "Ordenar",
+        columnHeaderTooltip: (column) => `Ordenar por ${column.label}`
+      },
+      pagination: {
+        next: "Próxima Página",
+        previous: "Página Anterior",
+        rowsPerPage: "Linhas por página:",
+        displayRows: "de"
+      },
+      toolbar: {
+        search: "Pesquisar",
+        downloadCsv: "Baixar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Colunas",
+        filterTable: "Filtrar Tabela"
+      },
+      filter: {
+        all: "Todos ou Tudo",
+        title: "FILTROS",
+        reset: "RESETAR"
+      },
+      viewColumns: {
+        title: "Mostrar Colunas",
+        titleAria: "Mostrar/Ocultar Colunas da Tabela"
+      },
+      selectedRows: {
+        text: "linha(s) selecionada(s)",
+        delete: "Deletar",
+        deleteAria: "Deletar Linhas Selecionadas"
+      }
+    }
   };
 
   return (
