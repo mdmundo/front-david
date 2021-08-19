@@ -46,7 +46,7 @@ const Clients = () => {
             // onClick={() => {
             //   navigate(`/clients/1`);
             // }}
-          >
+          >     
             <ExitToAppIcon />
           </IconButton>
         </Toolbar>
