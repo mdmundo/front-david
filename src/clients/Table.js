@@ -1,5 +1,6 @@
 import MUIDataTable from "mui-datatables";
 import { makeStyles } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
@@ -33,12 +34,16 @@ const Table = () => {
               justifyContent="flex-start"
               alignItems="center"
             >
-              <IconButton className={classes.icon} color="textSecondary">
-                <EditIcon />
-              </IconButton>
-              <IconButton className={classes.icon} color="textSecondary">
-                <FindInPageIcon />
-              </IconButton>
+              <Tooltip title="Editar">
+                <IconButton className={classes.icon} color="textSecondary">
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Detalhes">
+                <IconButton className={classes.icon} color="textSecondary">
+                  <FindInPageIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
           );
         }
