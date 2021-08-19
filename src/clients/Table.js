@@ -20,12 +20,37 @@ const Table = () => {
   const classes = useStyles();
 
   const columns = [
-    "Nome",
-    "Empresa",
-    "Cidade",
-    "Estado",
     {
-      name: "Ações",
+      name: "name",
+      label: "Name"
+    },
+    {
+      name: "title",
+      label: "Modified Title Label"
+    },
+    {
+      name: "location",
+      label: "Location"
+    },
+    {
+      name: "age",
+      Label: "Age"
+    },
+    {
+      name: "salary",
+      label: "Salary"
+    },
+    {
+      name: "phone.home",
+      label: "Home Phone"
+    },
+    {
+      name: "phone.cell",
+      label: "Cell Phone #"
+    },
+    {
+      name: "edit",
+      label: "Ações",
       options: {
         filter: false,
         sort: false,
@@ -45,15 +70,44 @@ const Table = () => {
   ];
 
   const data = [
-    ["Joe James", "Test Corp", "Yonkers", "NY", "1"],
-    ["John Walsh", "Test Corp", "Hartford", "CT", "2"],
-    ["Bob Herm", "Test Corp", "Tampa", "FL", "3"],
-    ["James Houston", "Test Corp", "Dallas", "TX", "4"]
+    {
+      name: "Gabby George",
+      title: "Business Analyst",
+      location: "Minneapolis",
+      age: 30,
+      salary: "$100,000",
+      phone: { home: "867-5309", cell: "123-4567" }
+    },
+    {
+      name: "Aiden Lloyd",
+      title: "Business Consultant",
+      location: "Dallas",
+      age: 55,
+      salary: "$200,000",
+      phone: { home: "867-5310", cell: "123-4568" }
+    },
+    {
+      name: "Jaden Collins",
+      title: "Attorney",
+      location: "Santa Ana",
+      age: 27,
+      salary: "$500,000",
+      phone: { home: "867-5311", cell: "123-4569" }
+    },
+    {
+      name: "Franky Rees",
+      title: "Business Analyst",
+      location: "St. Petersburg",
+      age: 22,
+      salary: "$50,000",
+      phone: { home: "867-5312", cell: "123-4569" }
+    }
   ];
 
   const options = {
     filterType: "checkbox",
     print: false,
+    enableNestedDataAccess: ".",
     textLabels: {
       body: {
         noMatch: "Desculpe, nenhum registro correspondente encontrado",
