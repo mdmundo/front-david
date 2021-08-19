@@ -1,12 +1,13 @@
+import { useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
-import Grid from "@material-ui/core/Grid";
+// import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
-import FindInPageIcon from "@material-ui/icons/FindInPage";
+// import FindInPageIcon from "@material-ui/icons/FindInPage";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -17,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Table = () => {
+  useEffect(() => {}, []);
+
   const classes = useStyles();
 
   const columns = [
