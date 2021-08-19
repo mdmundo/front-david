@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
   table: {
-    paddingTop: theme.spacing(10)
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(7)
   }
 }));
 
