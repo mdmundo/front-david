@@ -1,3 +1,4 @@
+import { useState, forwardRef } from "react";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
@@ -8,6 +9,14 @@ import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     "&:hover": {
@@ -16,7 +25,30 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Table = ({ data }) => {
+const Transition = forwardRef((props, ref) => {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const Table = ({ data: remoteData }) => {
+  const [data, setData] = useState(remoteData);
+
+  const [removeId, setRemoveId] = useState();
+  const [openOptions, setOpenOptions] = useState(false);
+
+  const handleClickOpenOptions = () => {
+    setOpenOptions(true);
+  };
+
+  const handleCloseOptions = () => {
+    setOpenOptions(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    const refresh = data.filter((el) => el.id !== removeId);
+    setData(refresh);
+    setOpenOptions(false);
+  };
+
   const classes = useStyles();
 
   const columns = [
@@ -111,7 +143,14 @@ const Table = ({ data }) => {
             </Grid>
             <Grid item>
               <Tooltip title="Deletar">
-                <IconButton className={classes.icon} color="textSecondary">
+                <IconButton
+                  className={classes.icon}
+                  color="textSecondary"
+                  onClick={() => {
+                    setRemoveId(value);
+                    handleClickOpenOptions();
+                  }}
+                >
                   <DeleteForeverIcon />
                 </IconButton>
               </Tooltip>
@@ -147,7 +186,7 @@ const Table = ({ data }) => {
         filterTable: "Filtrar Tabela"
       },
       filter: {
-        all: "Todos ou Tudo",
+        all: "Tudo",
         title: "FILTROS",
         reset: "RESETAR"
       },
@@ -164,12 +203,36 @@ const Table = ({ data }) => {
   };
 
   return (
-    <MUIDataTable
-      title={"Lista de Clientes"}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <>
+      <MUIDataTable
+        title={"Lista de Clientes"}
+        data={data}
+        columns={columns}
+        options={options}
+      />
+      <Dialog
+        open={openOptions}
+        onClose={handleCloseOptions}
+        TransitionComponent={Transition}
+      >
+        <DialogTitle>Excluir Registro</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {
+              "Deseja remover este cliente permanentemente? Você não será capaz de desfazer esta ação."
+            }
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteConfirm} color="secondary">
+            Deletar
+          </Button>
+          <Button autoFocus onClick={handleCloseOptions} color="primary">
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
