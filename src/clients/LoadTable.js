@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Snackbar from "@material-ui/core/Snackbar";
+import Typography from "@material-ui/core/Typography";
 import axios from "./axios";
 import Table from "./Table";
 
@@ -30,7 +31,11 @@ const LoadTable = () => {
         justifyContent="center"
         alignItems="center"
       >
-        {!error && <CircularProgress />}
+        {error ? (
+          <Typography variant="h1">😭</Typography>
+        ) : (
+          <CircularProgress />
+        )}
       </Grid>
       <Snackbar
         anchorOrigin={{

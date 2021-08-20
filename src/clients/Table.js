@@ -16,6 +16,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
+import Snackbar from "@material-ui/core/Snackbar";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import axios from "./axios";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -34,6 +37,10 @@ const Table = ({ data: remoteData }) => {
 
   const [removeId, setRemoveId] = useState();
   const [openOptions, setOpenOptions] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
+  const [resultOpen, setResultOpen] = useState(false);
+  const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
 
   const handleClickOpenOptions = () => {
     setOpenOptions(true);
@@ -44,9 +51,25 @@ const Table = ({ data: remoteData }) => {
   };
 
   const handleDeleteConfirm = () => {
-    const refresh = data.filter((el) => el.id !== removeId);
-    setData(refresh);
-    setOpenOptions(false);
+    setClicked(true);
+    axios
+      .delete(`/members/${removeId}`)
+      .then(() => {
+        const refresh = data.filter((el) => el.id !== removeId);
+        setData(refresh);
+        setOpenOptions(false);
+        setClicked(false);
+
+        setDeletedSuccessfully(true);
+        setResultOpen(true);
+      })
+      .catch((e) => {
+        setOpenOptions(false);
+        setClicked(false);
+
+        setDeletedSuccessfully(false);
+        setResultOpen(true);
+      });
   };
 
   const classes = useStyles();
@@ -224,14 +247,34 @@ const Table = ({ data: remoteData }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteConfirm} color="secondary">
-            Deletar
+          <Button
+            onClick={handleDeleteConfirm}
+            disabled={clicked}
+            color="secondary"
+          >
+            {clicked ? "Aguarde..." : "Deletar"}
           </Button>
           <Button autoFocus onClick={handleCloseOptions} color="primary">
             Cancelar
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={resultOpen}
+        onClose={() => {
+          setResultOpen(false);
+        }}
+        autoHideDuration={750}
+        message={
+          deletedSuccessfully
+            ? "Registro removido com sucesso."
+            : "Não foi possível remover o registro."
+        }
+      />
     </>
   );
 };
