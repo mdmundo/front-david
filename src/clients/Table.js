@@ -109,6 +109,7 @@ const Table = ({ data }) => {
     filterType: "checkbox",
     print: false,
     enableNestedDataAccess: ".",
+    selectableRowsHideCheckboxes: true,
     textLabels: {
       body: {
         noMatch: "Desculpe, nenhum registro correspondente encontrado",
