@@ -1,27 +1,50 @@
 import { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
+import Snackbar from "@material-ui/core/Snackbar";
 import axios from "./axios";
 import Table from "./Table";
 
 const LoadTable = () => {
   const [axiosData, setAxiosData] = useState();
+  const [error, setError] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     axios("/members")
       .then((clients) => {
         setAxiosData(clients);
       })
       .catch((e) => {
-        console.debug(e);
+        setError(true);
+        setOpen(true);
       });
   }, []);
 
   return axiosData ? (
     <Table data={axiosData.data} />
   ) : (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <CircularProgress />
-    </Grid>
+    <>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {!error && <CircularProgress />}
+      </Grid>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
+        }}
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        autoHideDuration={2000}
+        message="Ocorreu um erro. Não foi possível acessar os dados."
+      />
+    </>
   );
 };
 
