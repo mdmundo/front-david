@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
-// import Grid from "@material-ui/core/Grid";
+import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
-// import FindInPageIcon from "@material-ui/icons/FindInPage";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -85,7 +85,7 @@ const Table = ({ data }) => {
       label: "Cliente Desde"
     },
     {
-      name: "edit",
+      name: "id",
       label: "Ações",
       options: {
         filter: false,
@@ -94,12 +94,29 @@ const Table = ({ data }) => {
         empty: true,
         print: false,
         searchable: false,
-        customBodyRenderLite: (dataIndex, rowIndex) => (
-          <Tooltip title="Editar">
-            <IconButton className={classes.icon} color="textSecondary">
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
+        customBodyRender: (value, tableMeta, updateValue) => (
+          <Grid
+            container
+            wrap="nowrap"
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+          >
+            <Grid item>
+              <Tooltip title="Editar">
+                <IconButton className={classes.icon} color="textSecondary">
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+            <Grid item>
+              <Tooltip title="Deletar">
+                <IconButton className={classes.icon} color="textSecondary">
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+          </Grid>
         )
       }
     }
