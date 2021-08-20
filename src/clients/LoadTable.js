@@ -40,7 +40,7 @@ const LoadTable = () => {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center"
+          horizontal: "center",
         }}
         open={open}
         onClose={() => {

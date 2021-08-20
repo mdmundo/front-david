@@ -23,9 +23,9 @@ import axios from "./axios";
 const useStyles = makeStyles((theme) => ({
   icon: {
     "&:hover": {
-      color: theme.palette.primary.main
-    }
-  }
+      color: theme.palette.primary.main,
+    },
+  },
 }));
 
 const Transition = forwardRef((props, ref) => {
@@ -77,67 +77,67 @@ const Table = ({ data: remoteData }) => {
   const columns = [
     {
       name: "fantasy",
-      label: "Nome Fantasia"
+      label: "Nome Fantasia",
     },
     {
       name: "type",
       label: "CNPJ Cadastrado?",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          value === "cnpj" ? "Sim" : "Não"
-      }
+          value === "cnpj" ? "Sim" : "Não",
+      },
     },
     {
       name: "cnpj",
-      label: "CNPJ"
+      label: "CNPJ",
     },
     {
       name: "cpf",
-      label: "CPF"
+      label: "CPF",
     },
     {
       name: "ie",
-      label: "Inscrição Estadual"
+      label: "Inscrição Estadual",
     },
     {
       name: "rs",
-      label: "Razão Social"
+      label: "Razão Social",
     },
     {
       name: "category",
-      label: "Categoria"
+      label: "Categoria",
     },
     {
       name: "branch",
-      label: "Ramo de Atividade"
+      label: "Ramo de Atividade",
     },
     {
       name: "taxing",
-      label: "Tributação"
+      label: "Tributação",
     },
     {
       name: "address",
-      label: "Endereço"
+      label: "Endereço",
     },
     {
       name: "city",
-      label: "Município"
+      label: "Município",
     },
     {
       name: "state",
-      label: "Unidade Federativa"
+      label: "Unidade Federativa",
     },
     {
       name: "postal",
-      label: "CEP"
+      label: "CEP",
     },
     {
       name: "since",
-      label: "Início de Atividades"
+      label: "Início de Atividades",
     },
     {
       name: "member",
-      label: "Cliente Desde"
+      label: "Cliente Desde",
     },
     {
       name: "id",
@@ -179,9 +179,9 @@ const Table = ({ data: remoteData }) => {
               </Tooltip>
             </Grid>
           </Grid>
-        )
-      }
-    }
+        ),
+      },
+    },
   ];
 
   const options = {
@@ -193,36 +193,36 @@ const Table = ({ data: remoteData }) => {
       body: {
         noMatch: "Desculpe, nenhum registro correspondente encontrado",
         toolTip: "Ordenar",
-        columnHeaderTooltip: (column) => `Ordenar por ${column.label}`
+        columnHeaderTooltip: (column) => `Ordenar por ${column.label}`,
       },
       pagination: {
         next: "Próxima Página",
         previous: "Página Anterior",
         rowsPerPage: "Linhas por página:",
-        displayRows: "de"
+        displayRows: "de",
       },
       toolbar: {
         search: "Pesquisar",
         downloadCsv: "Baixar CSV",
         print: "Imprimir",
         viewColumns: "Ver Colunas",
-        filterTable: "Filtrar Tabela"
+        filterTable: "Filtrar Tabela",
       },
       filter: {
         all: "Tudo",
         title: "FILTROS",
-        reset: "RESETAR"
+        reset: "RESETAR",
       },
       viewColumns: {
         title: "Mostrar Colunas",
-        titleAria: "Mostrar/Ocultar Colunas da Tabela"
+        titleAria: "Mostrar/Ocultar Colunas da Tabela",
       },
       selectedRows: {
         text: "linha(s) selecionada(s)",
         delete: "Deletar",
-        deleteAria: "Deletar Linhas Selecionadas"
-      }
-    }
+        deleteAria: "Deletar Linhas Selecionadas",
+      },
+    },
   };
 
   return (
@@ -262,7 +262,7 @@ const Table = ({ data: remoteData }) => {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left"
+          horizontal: "left",
         }}
         open={resultOpen}
         onClose={() => {

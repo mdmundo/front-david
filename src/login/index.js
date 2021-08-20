@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { navigate } from "@reach/router";
+import localforage from "localforage";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import GoogleIcon from "./GoogleIcon";
@@ -12,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: theme.spacing(10)
+    paddingTop: theme.spacing(10),
   },
   login: {
-    marginTop: theme.spacing(7)
-  }
+    marginTop: theme.spacing(7),
+  },
 }));
 
 const Login = () => {
@@ -38,9 +39,11 @@ const Login = () => {
             color="primary"
             startIcon={<GoogleIcon />}
             onClick={() => {
-              setError("Uma mensagem útil sobre o erro ocorrido.");
-              setOpen(true);
-              // navigate(`/clients`);
+              // setError("Uma mensagem útil sobre o erro ocorrido.");
+              // setOpen(true);
+              localforage.getItem("url").then((url) => {
+                navigate(`${url}/connect/google`);
+              });
             }}
           >
             Entrar com Google
@@ -50,7 +53,7 @@ const Login = () => {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left"
+          horizontal: "left",
         }}
         open={open}
         onClose={() => {
