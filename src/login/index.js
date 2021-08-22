@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { navigate } from "@reach/router";
-import localforage from "localforage";
+import storage from "localforage";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import GoogleIcon from "./GoogleIcon";
 import Snackbar from "@material-ui/core/Snackbar";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
+import AppContext from "../context";
 
 const useStyles = makeStyles((theme) => ({
   upper: {
@@ -23,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
+
+  const { url } = useContext(AppContext);
 
   const classes = useStyles();
 
@@ -41,9 +44,11 @@ const Login = () => {
             onClick={() => {
               // setError("Uma mensagem útil sobre o erro ocorrido.");
               // setOpen(true);
-              localforage.getItem("url").then((url) => {
-                navigate(`${url}/connect/google`);
-              });
+              storage.setItem(
+                "token",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI5Njc1MDk0LCJleHAiOjE2MzIyNjcwOTR9.YunBgSV1QJ5DP0-N6AVHFsKu5AzoyMmKvOfYS8gLZNA"
+              );
+              navigate(`${url}/connect/google`);
             }}
           >
             Entrar com Google

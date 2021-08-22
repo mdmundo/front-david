@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import { navigate, useLocation } from "@reach/router";
 import { parse } from "query-string";
-import localforage from "localforage";
+import storage from "localforage";
+import AppContext from "../context";
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -13,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Auth = () => {
+  const { dispatchToken } = useContext(AppContext);
   const classes = useStyles();
   const location = useLocation();
 
   useEffect(() => {
     const searchQueries = parse(location.search);
-    localforage.setItem("token", searchQueries.id_token).then((_) => {
-      navigate("/clients");
-    });
+    dispatchToken(searchQueries.access_token);
+    navigate("/clients");
   }, []);
 
   return (

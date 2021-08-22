@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Snackbar from "@material-ui/core/Snackbar";
 import Typography from "@material-ui/core/Typography";
-import axios from "./axios";
 import Table from "./Table";
+import AppContext from "../context";
 
 const LoadTable = () => {
   const [axiosData, setAxiosData] = useState();
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const { axios } = useContext(AppContext);
+
   useEffect(() => {
     axios("/members")
       .then((clients) => {
