@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useMemo } from "react";
 import { Router, navigate } from "@reach/router";
 import axios from "axios";
 import storage from "localforage";
@@ -6,38 +6,65 @@ import Login from "./login";
 import Clients from "./clients";
 import Debts from "./debts";
 import Auth from "./auth";
-import AppContext from "./context";
+import AppContext, { ThemeContext } from "./context";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const update = (state, update) => update;
 const url = "https://0l5ox8r4.anyfiddle.run";
 
 const App = () => {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [isDark, setDark] = useReducer(update);
+
   const [instance, dispatchInstance] = useReducer(update);
 
   useEffect(() => {
     storage.getItem("token").then((token) => {
-      if (token) {
+      if (token)
         dispatchInstance(
           axios.create({
             baseURL: url,
             headers: { Authorization: `Bearer ${token}` },
           })
         );
-        navigate("/clients");
-      } else {
-        navigate("/login");
-      }
+      navigate("/clients");
     });
   }, []);
 
+  useEffect(() => {
+    setDark(prefersDarkMode);
+  }, [prefersDarkMode]);
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          type: isDark ? "dark" : "light",
+          primary: {
+            dark: "#1769aa",
+            main: "#2196f3",
+            light: "#4dabf5",
+          },
+        },
+      }),
+    [isDark]
+  );
+
   return (
     <AppContext.Provider value={{ axios: instance, dispatchInstance, url }}>
-      <Router>
-        <Login path="login" />
-        <Clients path="clients" />
-        <Debts path="clients/:id" />
-        <Auth path="auth" />
-      </Router>
+      <ThemeContext.Provider value={{ isDark, setDark }}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <Login path="/" />
+            <Clients path="clients" />
+            <Debts path="clients/:id" />
+            <Auth path="auth" />
+          </Router>
+        </ThemeProvider>
+      </ThemeContext.Provider>
     </AppContext.Provider>
   );
 };
