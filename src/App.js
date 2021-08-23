@@ -12,13 +12,17 @@ const update = (state, update) => update;
 const url = "https://0l5ox8r4.anyfiddle.run";
 
 const App = () => {
-  const [token, dispatchToken] = useReducer(update);
   const [instance, dispatchInstance] = useReducer(update);
 
   useEffect(() => {
     storage.getItem("token").then((token) => {
       if (token) {
-        dispatchToken(token);
+        dispatchInstance(
+          axios.create({
+            baseURL: url,
+            headers: { Authorization: `Bearer ${token}` },
+          })
+        );
         navigate("/clients");
       } else {
         navigate("/login");
@@ -26,17 +30,8 @@ const App = () => {
     });
   }, []);
 
-  useEffect(() => {
-    storage.setItem("token", token);
-    const instance = axios.create({
-      baseURL: url,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    dispatchInstance(instance);
-  }, [token]);
-
   return (
-    <AppContext.Provider value={{ axios: instance, dispatchToken, url }}>
+    <AppContext.Provider value={{ axios: instance, dispatchInstance, url }}>
       <Router>
         <Login path="login" />
         <Clients path="clients" />

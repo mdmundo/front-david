@@ -1,5 +1,4 @@
 import React from "react";
-import { navigate } from "@reach/router";
 import { makeStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,12 +13,12 @@ import LoadTable from "./LoadTable";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   table: {
     paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(7)
-  }
+    paddingBottom: theme.spacing(7),
+  },
 }));
 
 const Clients = () => {

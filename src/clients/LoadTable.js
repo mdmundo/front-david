@@ -5,6 +5,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Typography from "@material-ui/core/Typography";
 import Table from "./Table";
 import AppContext from "../context";
+import { navigate } from "@reach/router";
 
 const LoadTable = () => {
   const [axiosData, setAxiosData] = useState();
@@ -14,14 +15,18 @@ const LoadTable = () => {
   const { axios } = useContext(AppContext);
 
   useEffect(() => {
-    axios("/members")
-      .then((clients) => {
-        setAxiosData(clients);
-      })
-      .catch((e) => {
-        setError(true);
-        setOpen(true);
-      });
+    if (!axios) {
+      navigate("/");
+    } else {
+      axios("/members")
+        .then((clients) => {
+          setAxiosData(clients);
+        })
+        .catch((e) => {
+          setError(true);
+          setOpen(true);
+        });
+    }
   }, []);
 
   return axiosData ? (

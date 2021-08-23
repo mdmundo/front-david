@@ -3,8 +3,7 @@ import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import { navigate, useLocation } from "@reach/router";
-import { parse } from "query-string";
-import storage from "localforage";
+import axios from "axios";
 import AppContext from "../context";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,13 +13,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Auth = () => {
-  const { dispatchToken } = useContext(AppContext);
+  const { dispatchInstance, url } = useContext(AppContext);
   const classes = useStyles();
   const location = useLocation();
 
   useEffect(() => {
-    const searchQueries = parse(location.search);
-    dispatchToken(searchQueries.access_token);
+    axios(`${url}/auth/google/callback${location.search}`)
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error(`Couldn't login to Strapi. Status: ${res.status}`);
+        }
+        return res;
+      })
+      .then(({ data }) => {
+        dispatchInstance(
+          axios.create({
+            baseURL: url,
+            headers: { Authorization: `Bearer ${data.jwt}` },
+          })
+        );
+      })
+      .catch((e) => {
+        console.debug(e);
+      });
+
     navigate("/clients");
   }, []);
 

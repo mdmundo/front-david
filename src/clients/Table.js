@@ -1,4 +1,4 @@
-import { useState, forwardRef, useReducer } from "react";
+import { useState, forwardRef, useContext } from "react";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
@@ -17,7 +17,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import AppContext from "../context";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +41,7 @@ const Table = ({ data: remoteData }) => {
   const [resultOpen, setResultOpen] = useState(false);
   const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
 
-  const { axios } = useReducer(AppContext);
+  const { axios } = useContext(AppContext);
 
   const handleClickOpenOptions = () => {
     setOpenOptions(true);
