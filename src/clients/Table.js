@@ -8,6 +8,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -159,6 +160,17 @@ const Table = ({ data: remoteData }) => {
             alignItems="center"
           >
             <Grid item>
+              <Tooltip title="Detalhes">
+                <IconButton
+                  className={classes.icon}
+                  color="textSecondary"
+                  edge="start"
+                >
+                  <FindInPageIcon />
+                </IconButton>
+              </Tooltip>
+            </Grid>
+            <Grid item>
               <Tooltip title="Editar">
                 <IconButton className={classes.icon} color="textSecondary">
                   <EditIcon />
@@ -170,6 +182,7 @@ const Table = ({ data: remoteData }) => {
                 <IconButton
                   className={classes.icon}
                   color="textSecondary"
+                  edge="end"
                   onClick={() => {
                     setRemoveId(value);
                     handleClickOpenOptions();
