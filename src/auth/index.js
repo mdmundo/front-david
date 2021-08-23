@@ -1,20 +1,17 @@
-import { useEffect, useContext } from "react";
-import { makeStyles } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
+import { useEffect, useContext, useState } from "react";
 import { navigate, useLocation } from "@reach/router";
 import axios from "axios";
+import storage from "localforage";
 import AppContext from "../context";
-
-const useStyles = makeStyles((theme) => ({
-  loading: {
-    paddingTop: theme.spacing(10),
-  },
-}));
+import Error from "../common/Error";
+import Loading from "../common/Loading";
+import AppBar from "../common/AppBar";
 
 const Auth = () => {
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+
   const { dispatchInstance, url } = useContext(AppContext);
-  const classes = useStyles();
   const location = useLocation();
 
   useEffect(() => {
@@ -26,30 +23,33 @@ const Auth = () => {
         return res;
       })
       .then(({ data }) => {
-        dispatchInstance(
-          axios.create({
-            baseURL: url,
-            headers: { Authorization: `Bearer ${data.jwt}` },
-          })
-        );
+        storage.setItem("token", data.jwt).then((token) => {
+          dispatchInstance(
+            axios.create({
+              baseURL: url,
+              headers: { Authorization: `Bearer ${token}` },
+            })
+          );
+          navigate("/clients");
+        });
       })
       .catch((e) => {
-        console.debug(e);
+        setError("Não foi possível entrar no servidor.");
+        setOpen(true);
       });
-
-    navigate("/clients");
   }, []);
 
   return (
-    <Grid
-      className={classes.loading}
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <CircularProgress />
-    </Grid>
+    <AppBar
+      {...{
+        title: "Autenticação",
+        Component: error ? (
+          <Error {...{ error, open, setOpen }} />
+        ) : (
+          <Loading />
+        ),
+      }}
+    />
   );
 };
 

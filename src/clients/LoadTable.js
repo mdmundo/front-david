@@ -1,15 +1,13 @@
 import { useEffect, useState, useContext } from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
-import Snackbar from "@material-ui/core/Snackbar";
-import Typography from "@material-ui/core/Typography";
 import Table from "./Table";
 import AppContext from "../context";
 import { navigate } from "@reach/router";
+import Error from "../common/Error";
+import Loading from "../common/Loading";
 
 const LoadTable = () => {
   const [axiosData, setAxiosData] = useState();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
 
   const { axios } = useContext(AppContext);
@@ -23,7 +21,7 @@ const LoadTable = () => {
           setAxiosData(clients);
         })
         .catch((e) => {
-          setError(true);
+          setError("Ocorreu um erro. Não foi possível acessar os dados.");
           setOpen(true);
         });
     }
@@ -31,33 +29,10 @@ const LoadTable = () => {
 
   return axiosData ? (
     <Table data={axiosData.data} />
+  ) : error ? (
+    <Error {...{ error, open, setOpen }} />
   ) : (
-    <>
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {error ? (
-          <Typography variant="h1">😭</Typography>
-        ) : (
-          <CircularProgress />
-        )}
-      </Grid>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-        autoHideDuration={2000}
-        message="Ocorreu um erro. Não foi possível acessar os dados."
-      />
-    </>
+    <Loading />
   );
 };
 
