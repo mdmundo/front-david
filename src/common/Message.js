@@ -1,6 +1,6 @@
 import Snackbar from "@material-ui/core/Snackbar";
 
-const Message = ({ open, setOpen, error }) => (
+const Message = ({ open, setOpen, message }) => (
   <Snackbar
     anchorOrigin={{
       vertical: "bottom",
@@ -11,7 +11,7 @@ const Message = ({ open, setOpen, error }) => (
       setOpen(false);
     }}
     autoHideDuration={750}
-    message={error || "Ocorreu um erro, mas não tenho mais informações."}
+    message={message || "Ocorreu um erro, mas não tenho mais informações."}
   />
 );
 

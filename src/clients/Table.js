@@ -16,8 +16,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
-import Snackbar from "@material-ui/core/Snackbar";
 import AppContext from "../context";
+import Message from "../common/Message";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -260,21 +260,14 @@ const Table = ({ data: remoteData }) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        open={resultOpen}
-        onClose={() => {
-          setResultOpen(false);
-        }}
-        autoHideDuration={750}
-        message={
-          deletedSuccessfully
+      <Message
+        {...{
+          open: resultOpen,
+          setOpen: setResultOpen,
+          message: deletedSuccessfully
             ? "Registro removido com sucesso."
-            : "Não foi possível remover o registro."
-        }
+            : "Não foi possível remover o registro.",
+        }}
       />
     </>
   );
