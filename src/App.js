@@ -2,14 +2,15 @@ import React, { useEffect, useReducer, useMemo } from "react";
 import { Router, navigate } from "@reach/router";
 import axios from "axios";
 import storage from "localforage";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Login from "./login";
 import Clients from "./clients";
 import Debts from "./debts";
 import Auth from "./auth";
+import Register from "./register";
 import AppContext, { ThemeContext } from "./context";
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const update = (state, update) => update;
 const url = "https://0l5ox8r4.anyfiddle.run";
