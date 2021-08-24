@@ -54,6 +54,7 @@ export default function AddressForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             label="CNPJ"
+            disabled={type !== "cnpj"}
             value={cnpj}
             onChange={({ target: { value } }) => {
               setCnpj(value);
@@ -238,7 +239,7 @@ export default function AddressForm() {
           <FormControlLabel
             control={
               <Checkbox
-                color="secondary"
+                color="primary"
                 checked={type === "cnpj"}
                 onChange={({ target: { checked } }) => {
                   setType(checked ? "cnpj" : "cpf");

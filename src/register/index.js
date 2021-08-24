@@ -8,7 +8,7 @@ const update = (state, update) => update;
 const Register = () => {
   const [cnpj, setCnpj] = useReducer(update);
   const [cpf, setCpf] = useReducer(update);
-  const [type, setType] = useReducer(update);
+  const [type, setType] = useReducer(update, "cnpj");
   const [ie, setIe] = useReducer(update);
   const [rs, setRs] = useReducer(update);
   const [fantasy, setFantasy] = useReducer(update);
