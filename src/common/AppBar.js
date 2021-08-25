@@ -8,8 +8,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -39,7 +37,7 @@ const LocalAppBar = ({ title, Component }) => {
             {title}
           </Typography>
           <div className={classes.grow} />
-          <Tooltip title={isDark ? "Claridade" : "Escuridão"}>
+          <Tooltip title={isDark ? "Claro" : "Escuro"}>
             <IconButton
               color="inherit"
               onClick={() => {
@@ -47,13 +45,6 @@ const LocalAppBar = ({ title, Component }) => {
               }}
             >
               {isDark ? <Brightness5Icon /> : <Brightness2Icon />}
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Notificações">
-            <IconButton color="inherit" disabled>
-              <Badge badgeContent={3} color="secondary">
-                <NotificationsIcon />
-              </Badge>
             </IconButton>
           </Tooltip>
           <Tooltip title="Sair">

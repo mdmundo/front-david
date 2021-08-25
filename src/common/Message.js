@@ -10,8 +10,8 @@ const Message = ({ open, setOpen, message }) => (
     onClose={() => {
       setOpen(false);
     }}
-    autoHideDuration={750}
-    message={message || "Ocorreu um erro, mas não tenho mais informações."}
+    autoHideDuration={1250}
+    message={message || "Ocorreu um erro, mas não tenho mais informações😔"}
   />
 );
 

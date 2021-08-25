@@ -278,8 +278,8 @@ const Table = ({ data: remoteData }) => {
           open: resultOpen,
           setOpen: setResultOpen,
           message: deletedSuccessfully
-            ? "Registro removido com sucesso."
-            : "Não foi possível remover o registro.",
+            ? "Registro removido com sucesso😒"
+            : "Não foi possível remover o registro💩",
         }}
       />
     </>
