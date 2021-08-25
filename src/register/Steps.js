@@ -89,12 +89,26 @@ const Steps = () => {
         since,
         member,
       })
-      .then((client) => {
-        console.log("🚀 ~ file: Steps.js ~ line 92 ~ submit ~ member", member);
-        console.log("🚀 ~ file: Steps.js ~ line 92 ~ submit ~ since", since);
+      .then(({ data: { id } }) => {
+        const empty = new Array(12 - initialMonth.index + 1);
+        empty.fill(0);
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const debts = empty.map((_, i) => ({
+          amount,
+          ref: `${year}-${initialMonth.index + i}-01`,
+        }));
+
+        axios.post("/debts", {
+          member: id,
+          debts,
+        });
       })
       .catch((e) => {
         console.log(e);
+
+        // TODO: setError
       });
   };
 
