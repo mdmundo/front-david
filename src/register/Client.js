@@ -11,7 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { FormContext } from "../context";
 
-export default function AddressForm() {
+const Client = () => {
   const {
     cnpj,
     setCnpj,
@@ -43,6 +43,10 @@ export default function AddressForm() {
     setSince,
     member,
     setMember,
+    categories,
+    taxes,
+    cities,
+    states,
   } = useContext(FormContext);
 
   return (
@@ -111,9 +115,11 @@ export default function AddressForm() {
                 setCategory(value);
               }}
             >
-              <MenuItem value={"Serviço"}>Serviço</MenuItem>
-              <MenuItem value={"Comércio"}>Comércio</MenuItem>
-              <MenuItem value={"Indústria"}>Indústria</MenuItem>
+              {categories.map((category, i) => (
+                <MenuItem key={i} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -136,9 +142,11 @@ export default function AddressForm() {
                 setTaxing(value);
               }}
             >
-              <MenuItem value={"Simples Nacional"}>Simples Nacional</MenuItem>
-              <MenuItem value={"Lucro Presumido"}>Lucro Presumido</MenuItem>
-              <MenuItem value={"Lucro Real"}>Lucro Real</MenuItem>
+              {taxes.map((tax, i) => (
+                <MenuItem key={i} value={tax}>
+                  {tax}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -150,51 +158,36 @@ export default function AddressForm() {
               onChange={({ target: { value } }) => {
                 setState(value);
               }}
+              renderValue={({ full }) => full}
             >
-              <MenuItem value={"Acre"}>Acre</MenuItem>
-              <MenuItem value={"Alagoas"}>Alagoas</MenuItem>
-              <MenuItem value={"Amapá"}>Amapá</MenuItem>
-              <MenuItem value={"Amazonas"}>Amazonas</MenuItem>
-              <MenuItem value={"Bahia"}>Bahia</MenuItem>
-              <MenuItem value={"Ceará"}>Ceará</MenuItem>
-              <MenuItem value={"Distrito Federal"}>Distrito Federal</MenuItem>
-              <MenuItem value={"Espírito Santo"}>Espírito Santo</MenuItem>
-              <MenuItem value={"Goiás"}>Goiás</MenuItem>
-              <MenuItem value={"Maranhão"}>Maranhão</MenuItem>
-              <MenuItem value={"Mato Grosso"}>Mato Grosso</MenuItem>
-              <MenuItem value={"Mato Grosso do Sul"}>
-                Mato Grosso do Sul
-              </MenuItem>
-              <MenuItem value={"Minas Gerais"}>Minas Gerais</MenuItem>
-              <MenuItem value={"Pará"}>Pará</MenuItem>
-              <MenuItem value={"Paraíba"}>Paraíba</MenuItem>
-              <MenuItem value={"Paraná"}>Paraná</MenuItem>
-              <MenuItem value={"Pernambuco"}>Pernambuco</MenuItem>
-              <MenuItem value={"Piauí"}>Piauí</MenuItem>
-              <MenuItem value={"Rio de Janeiro"}>Rio de Janeiro</MenuItem>
-              <MenuItem value={"Rio Grande do Norte"}>
-                Rio Grande do Norte
-              </MenuItem>
-              <MenuItem value={"Rio Grande do Sul"}>Rio Grande do Sul</MenuItem>
-              <MenuItem value={"Rondônia"}>Rondônia</MenuItem>
-              <MenuItem value={"Roraima"}>Roraima</MenuItem>
-              <MenuItem value={"Santa Catarina"}>Santa Catarina</MenuItem>
-              <MenuItem value={"São Paulo"}>São Paulo</MenuItem>
-              <MenuItem value={"Sergipe"}>Sergipe</MenuItem>
-              <MenuItem value={"Tocantins"}>Tocantins</MenuItem>
+              {states.map((state, i) => (
+                <MenuItem key={i} value={state}>
+                  {state.full}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            label="Município"
-            value={city}
-            onChange={({ target: { value } }) => {
-              setCity(value);
-            }}
-            fullWidth
-          />
-        </Grid>
+        {cities && city && (
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>Município</InputLabel>
+              <Select
+                value={city}
+                onChange={({ target: { value } }) => {
+                  setCity(value);
+                }}
+                renderValue={({ city }) => city}
+              >
+                {cities.map((city, i) => (
+                  <MenuItem key={i} value={city}>
+                    {city.city}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        )}
         <Grid item xs={12}>
           <TextField
             label="Endereço"
@@ -253,4 +246,6 @@ export default function AddressForm() {
       </Grid>
     </>
   );
-}
+};
+
+export { Client as default };

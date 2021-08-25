@@ -23,14 +23,15 @@ const App = () => {
 
   useEffect(() => {
     storage.getItem("token").then((token) => {
-      if (token)
+      if (token) {
         dispatchInstance(
           axios.create({
             baseURL: url,
             headers: { Authorization: `Bearer ${token}` },
           })
         );
-      navigate("/clients");
+        navigate("/clients");
+      }
     });
   }, []);
 
@@ -63,6 +64,7 @@ const App = () => {
             <Clients path="clients" />
             <Debts path="clients/:id" />
             <Auth path="auth" />
+            <Register path="new" />
           </Router>
         </ThemeProvider>
       </ThemeContext.Provider>

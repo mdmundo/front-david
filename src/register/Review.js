@@ -99,9 +99,6 @@ const Review = () => {
         <ListItem>
           <ListItemText primary="Mês Inicial" secondary={initialMonth.name} />
         </ListItem>
-        {/* <ListItem>
-          <ListItemText primary="Mês de referência" secondary={ref} />
-        </ListItem> */}
         <ListItem>
           <ListItemText
             primary="Parcelas até o fim do ano"
