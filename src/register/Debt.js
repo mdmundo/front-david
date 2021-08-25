@@ -6,6 +6,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { FormContext } from "../context";
 
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
 const Debt = () => {
   const {
     amount,
@@ -18,9 +23,12 @@ const Debt = () => {
     setRef,
     record,
     setRecord,
+    installments,
+    setInstallments,
+    initialMonth,
+    setInitialMonth,
+    months,
   } = useContext(FormContext);
-
-  const [installments, setInstallments] = useState();
 
   return (
     <>
@@ -39,17 +47,33 @@ const Debt = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <TextField
-            label="Mês de referência"
-            value={ref}
+            label="Mês Inicial"
+            value={initialMonth}
             onChange={({ target: { value } }) => {
-              setRef(value);
+              setInitialMonth(value);
             }}
             fullWidth
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel>Mês Inicial</InputLabel>
+            <Select
+              value={initialMonth}
+              renderValue={({ name }) => name}
+              onChange={({ target: { value } }) => {
+                setInitialMonth(value);
+              }}
+            >
+              {months.map((month) => (
+                <MenuItem value={month}>{month.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* <Grid item xs={12} sm={6}>
           <TextField
             label="Data de pagamento"
             disabled={!paid}
@@ -84,7 +108,7 @@ const Debt = () => {
             }}
             fullWidth
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

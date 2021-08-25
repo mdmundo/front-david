@@ -243,6 +243,7 @@ export default function AddressForm() {
                 checked={type === "cnpj"}
                 onChange={({ target: { checked } }) => {
                   setType(checked ? "cnpj" : "cpf");
+                  if (!checked) setCnpj();
                 }}
               />
             }

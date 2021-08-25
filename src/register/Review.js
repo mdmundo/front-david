@@ -1,92 +1,116 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useContext } from "react";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Grid from "@material-ui/core/Grid";
+import { FormContext } from "../context";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" },
-];
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA",
-];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
-
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
-  },
-  total: {
-    fontWeight: 700,
-  },
-  title: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-export default function Review() {
-  const classes = useStyles();
+const Review = () => {
+  const {
+    cnpj,
+    cpf,
+    type,
+    ie,
+    rs,
+    fantasy,
+    category,
+    branch,
+    taxing,
+    address,
+    city,
+    state,
+    postal,
+    since,
+    member,
+    amount,
+    paid,
+    date,
+    ref,
+    record,
+    installments,
+    initialMonth,
+    months,
+  } = useContext(FormContext);
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Cliente
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+        {type === "cnpj" && (
+          <ListItem>
+            <ListItemText primary="CNPJ" secondary={cnpj} />
           </ListItem>
-        ))}
-        <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            $34.06
-          </Typography>
+        )}
+        <ListItem>
+          <ListItemText primary="CPF" secondary={cpf} />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            primary="Tipo de cadastro"
+            secondary={type.toUpperCase()}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Inscrição Estadual" secondary={ie} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Razão Social" secondary={rs} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Nome Fantasia" secondary={fantasy} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Categoria" secondary={category} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Ramo de Atividade" secondary={branch} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Tributação" secondary={taxing} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Endereço" secondary={address} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Município" secondary={city} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Unidade Federativa" secondary={state} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="CEP" secondary={postal} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Início de Atividades" secondary={since} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Cliente Desde" secondary={member} />
         </ListItem>
       </List>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
-          </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
-          </Typography>
-          <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
-    </React.Fragment>
+      <Typography variant="h6" gutterBottom>
+        Débitos
+      </Typography>
+      <List disablePadding>
+        <ListItem>
+          <ListItemText primary="Valor do Débito" secondary={amount} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Mês Inicial" secondary={initialMonth.name} />
+        </ListItem>
+        {/* <ListItem>
+          <ListItemText primary="Mês de referência" secondary={ref} />
+        </ListItem> */}
+        <ListItem>
+          <ListItemText
+            primary="Parcelas até o fim do ano"
+            secondary={12 - initialMonth.index + 1}
+          />
+        </ListItem>
+      </List>
+    </>
   );
-}
+};
+
+export { Review as default };

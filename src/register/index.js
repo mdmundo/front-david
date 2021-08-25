@@ -5,7 +5,23 @@ import { FormContext } from "../context";
 
 const update = (state, update) => update;
 
+const months = [
+  { index: 1, name: "Janeiro" },
+  { index: 2, name: "Fevereiro" },
+  { index: 3, name: "Março" },
+  { index: 4, name: "Abril" },
+  { index: 5, name: "Maio" },
+  { index: 6, name: "Junho" },
+  { index: 7, name: "Julho" },
+  { index: 8, name: "Agosto" },
+  { index: 9, name: "Setembro" },
+  { index: 10, name: "Outubro" },
+  { index: 11, name: "Novembro" },
+  { index: 12, name: "Dezembro" },
+];
+
 const Register = () => {
+  // Client Form
   const [cnpj, setCnpj] = useReducer(update);
   const [cpf, setCpf] = useReducer(update);
   const [type, setType] = useReducer(update, "cnpj");
@@ -22,11 +38,16 @@ const Register = () => {
   const [since, setSince] = useReducer(update);
   const [member, setMember] = useReducer(update);
 
+  // Debt Form
   const [amount, setAmount] = useReducer(update);
   const [paid, setPaid] = useReducer(update);
   const [date, setDate] = useReducer(update);
   const [ref, setRef] = useReducer(update);
   const [record, setRecord] = useReducer(update);
+
+  // Auxiliary Defs
+  const [installments, setInstallments] = useReducer(update);
+  const [initialMonth, setInitialMonth] = useReducer(update, months[0]);
 
   return (
     <FormContext.Provider
@@ -71,6 +92,11 @@ const Register = () => {
         setRef,
         record,
         setRecord,
+        installments,
+        setInstallments,
+        initialMonth,
+        setInitialMonth,
+        months,
       }}
     >
       <AppBar {...{ title: "Cadastro de Cliente", Component: <Steps /> }} />
