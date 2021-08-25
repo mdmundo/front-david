@@ -1,19 +1,20 @@
 import DateFnsUtils from "@date-io/date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
+  KeyboardDateTimePicker
 } from "@material-ui/pickers";
 
 const DatePicker = ({ label, date, setDate }) => {
-  setDate(new Date());
-
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
       <KeyboardDatePicker
-        margin="normal"
+        cancelLabel="Cancelar"
+        ampm={false}
+        format="dd/MM/yyyy"
         label={label}
-        format="yyyy-MM-dd"
         value={date}
         onChange={(date) => {
           setDate(date);
@@ -24,12 +25,11 @@ const DatePicker = ({ label, date, setDate }) => {
 };
 
 const TimePicker = ({ label, time, setTime }) => {
-  setTime(new Date());
-
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
       <KeyboardTimePicker
-        margin="normal"
+        cancelLabel="Cancelar"
+        ampm={false}
         label={label}
         value={time}
         onChange={(time) => {
@@ -40,4 +40,21 @@ const TimePicker = ({ label, time, setTime }) => {
   );
 };
 
-export { DatePicker as default, TimePicker };
+const DateTimePicker = ({ label, dateTime, setDateTime }) => {
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
+      <KeyboardDateTimePicker
+        cancelLabel="Cancelar"
+        ampm={false}
+        format="dd/MM/yyyy' às 'hh:mm"
+        label={label}
+        value={dateTime}
+        onChange={(dateTime) => {
+          setDateTime(dateTime);
+        }}
+      />
+    </MuiPickersUtilsProvider>
+  );
+};
+
+export { DatePicker as default, TimePicker, DateTimePicker };

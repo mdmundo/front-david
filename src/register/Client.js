@@ -47,7 +47,7 @@ const Client = () => {
     categories,
     taxes,
     cities,
-    states,
+    states
   } = useContext(FormContext);
 
   return (
@@ -210,28 +210,19 @@ const Client = () => {
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <TextField
-            label="Início de Atividades"
-            value={since}
-            onChange={({ target: { value } }) => {
-              setSince(value);
+          <DatePicker
+            {...{
+              label: "Início de Atividades",
+              date: since,
+              setDate: setSince
             }}
-            fullWidth
           />
         </Grid>
-        <DatePicker
-          {...{ label: "Cliente Desde", date: member, setDate: setMember }}
-        />
-        {/* <Grid item xs={12} sm={4}>
-          <TextField
-            label="Cliente Desde"
-            value={member}
-            onChange={({ target: { value } }) => {
-              setMember(value);
-            }}
-            fullWidth
+        <Grid item xs={12} sm={4}>
+          <DatePicker
+            {...{ label: "Cliente Desde", date: member, setDate: setMember }}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
           <FormControlLabel
             control={

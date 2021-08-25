@@ -27,11 +27,11 @@ const App = () => {
         dispatchInstance(
           axios.create({
             baseURL: url,
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` }
           })
         );
         navigate("/clients");
-      }
+      } else navigate("/new");
     });
   }, []);
 
@@ -47,9 +47,9 @@ const App = () => {
           primary: {
             dark: "#1769aa",
             main: "#2196f3",
-            light: "#4dabf5",
-          },
-        },
+            light: "#4dabf5"
+          }
+        }
       }),
     [isDark]
   );
