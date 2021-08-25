@@ -67,8 +67,8 @@ const Register = () => {
   const [state, setState] = useReducer(update, states[26]);
   const [city, setCity] = useReducer(update);
   const [postal, setPostal] = useReducer(update);
-  const [since, setSince] = useReducer(update);
-  const [member, setMember] = useReducer(update);
+  const [since, setSince] = useReducer(update, new Date());
+  const [member, setMember] = useReducer(update, new Date());
 
   // Debt Form
   const [amount, setAmount] = useReducer(update);

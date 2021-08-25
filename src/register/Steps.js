@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { navigate } from "@reach/router";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -10,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Client from "./Client";
 import Debt from "./Debt";
 import Review from "./Review";
+import AppContext, { FormContext } from "../context";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,6 +41,26 @@ const getStepContent = (step) => {
 const Steps = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const {
+    cnpj,
+    cpf,
+    type,
+    ie,
+    rs,
+    fantasy,
+    category,
+    branch,
+    taxing,
+    address,
+    city,
+    state,
+    postal,
+    since,
+    member,
+    amount,
+    initialMonth,
+  } = useContext(FormContext);
+  const { axios } = useContext(AppContext);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -47,6 +69,38 @@ const Steps = () => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const submit = () => {
+    axios
+      .post("/members", {
+        cnpj,
+        cpf,
+        type,
+        ie,
+        rs,
+        fantasy,
+        category,
+        branch,
+        taxing,
+        address,
+        city: city.city,
+        state: state.short,
+        postal,
+        since,
+        member,
+      })
+      .then((client) => {
+        console.log("🚀 ~ file: Steps.js ~ line 92 ~ submit ~ member", member);
+        console.log("🚀 ~ file: Steps.js ~ line 92 ~ submit ~ since", since);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    if (!axios) navigate("/");
+  }, []);
 
   return (
     <Paper className={classes.paper}>
@@ -69,10 +123,26 @@ const Steps = () => {
         spacing={2}
       >
         <Grid item>
-          {activeStep !== 0 && <Button onClick={handleBack}>Voltar</Button>}
+          <Button
+            color="secondary"
+            onClick={() => {
+              navigate("/clients");
+            }}
+          >
+            Cancelar
+          </Button>
         </Grid>
+        {activeStep !== 0 && (
+          <Grid item>
+            <Button onClick={handleBack}>Voltar</Button>
+          </Grid>
+        )}
         <Grid item>
-          <Button variant="contained" color="primary" onClick={handleNext}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={activeStep === steps.length - 1 ? submit : handleNext}
+          >
             {activeStep === steps.length - 1 ? "Confirmar" : "Próximo"}
           </Button>
         </Grid>
