@@ -10,6 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { FormContext } from "../context";
+import DatePicker from "./DatePicker";
 
 const Client = () => {
   const {
@@ -218,7 +219,10 @@ const Client = () => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <DatePicker
+          {...{ label: "Cliente Desde", date: member, setDate: setMember }}
+        />
+        {/* <Grid item xs={12} sm={4}>
           <TextField
             label="Cliente Desde"
             value={member}
@@ -227,7 +231,7 @@ const Client = () => {
             }}
             fullWidth
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <FormControlLabel
             control={
