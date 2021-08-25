@@ -1,9 +1,17 @@
 import { useEffect, useState, useContext } from "react";
+import { navigate } from "@reach/router";
+import { makeStyles, Grid, Button } from "@material-ui/core";
+
 import Table from "./Table";
 import AppContext from "../context";
-import { navigate } from "@reach/router";
 import Error from "../common/Error";
 import Loading from "../common/Loading";
+
+const useStyles = makeStyles((theme) => ({
+  create: {
+    paddingBottom: theme.spacing(1.25),
+  },
+}));
 
 const LoadTable = () => {
   const [axiosData, setAxiosData] = useState();
@@ -27,8 +35,28 @@ const LoadTable = () => {
     }
   }, []);
 
+  const classes = useStyles();
+
   return axiosData ? (
-    <Table data={axiosData.data} />
+    <>
+      <Grid
+        className={classes.create}
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-end"
+      >
+        <Button
+          size="small"
+          onClick={() => {
+            navigate("/new");
+          }}
+        >
+          Adicionar Cliente
+        </Button>
+      </Grid>
+      <Table data={axiosData.data} />
+    </>
   ) : error ? (
     <Error {...{ error, open, setOpen }} />
   ) : (
