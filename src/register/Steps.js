@@ -12,6 +12,7 @@ import Client from "./Client";
 import Debt from "./Debt";
 import Review from "./Review";
 import AppContext, { FormContext } from "../context";
+import Message from "../common/Message";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,6 +42,9 @@ const getStepContent = (step) => {
 const Steps = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState();
+
   const {
     cnpj,
     cpf,
@@ -97,18 +101,26 @@ const Steps = () => {
         const year = today.getFullYear();
         const debts = empty.map((_, i) => ({
           amount,
-          ref: `${year}-${initialMonth.index + i}-01`,
+          ref: new Date(`${year}-${initialMonth.index + i}-01`),
         }));
 
-        axios.post("/debts", {
-          member: id,
-          debts,
-        });
+        axios
+          .post("/debts", {
+            member: id,
+            debts,
+          })
+          .then(({ data }) => {
+            setOpen(true);
+            setMessage("Cadastro bem sucedido✅");
+          })
+          .catch((e) => {
+            setOpen(true);
+            setMessage("Ocorreu um erro ao cadastrar os Débitos❌");
+          });
       })
       .catch((e) => {
-        console.log(e);
-
-        // TODO: setError
+        setOpen(true);
+        setMessage("Ocorreu um erro ao cadastrar o Cliente🤕");
       });
   };
 
@@ -117,51 +129,54 @@ const Steps = () => {
   }, []);
 
   return (
-    <Paper className={classes.paper}>
-      <Typography variant="h4" align="center">
-        Cadastro
-      </Typography>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      {getStepContent(activeStep)}
-      <Grid
-        container
-        direction="row"
-        justifyContent="flex-end"
-        alignItems="flex-end"
-        spacing={2}
-      >
-        <Grid item>
-          <Button
-            color="secondary"
-            onClick={() => {
-              navigate("/clients");
-            }}
-          >
-            Cancelar
-          </Button>
-        </Grid>
-        {activeStep !== 0 && (
+    <>
+      <Paper className={classes.paper}>
+        <Typography variant="h4" align="center">
+          Cadastro
+        </Typography>
+        <Stepper activeStep={activeStep}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        {getStepContent(activeStep)}
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+          spacing={2}
+        >
           <Grid item>
-            <Button onClick={handleBack}>Voltar</Button>
+            <Button
+              color="secondary"
+              onClick={() => {
+                navigate("/clients");
+              }}
+            >
+              Cancelar
+            </Button>
           </Grid>
-        )}
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={activeStep === steps.length - 1 ? submit : handleNext}
-          >
-            {activeStep === steps.length - 1 ? "Confirmar" : "Próximo"}
-          </Button>
+          {activeStep !== 0 && (
+            <Grid item>
+              <Button onClick={handleBack}>Voltar</Button>
+            </Grid>
+          )}
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={activeStep === steps.length - 1 ? submit : handleNext}
+            >
+              {activeStep === steps.length - 1 ? "Confirmar" : "Próximo"}
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+      <Message {...{ open, setOpen, message }} />
+    </>
   );
 };
 
