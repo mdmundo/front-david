@@ -74,10 +74,10 @@ const Review = () => {
           <ListItemText primary="Endereço" secondary={address} />
         </ListItem>
         <ListItem>
-          <ListItemText primary="Município" secondary={city} />
+          <ListItemText primary="Município" secondary={city.city} />
         </ListItem>
         <ListItem>
-          <ListItemText primary="Unidade Federativa" secondary={state} />
+          <ListItemText primary="Unidade Federativa" secondary={state.full} />
         </ListItem>
         <ListItem>
           <ListItemText primary="CEP" secondary={postal} />
