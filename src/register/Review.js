@@ -1,9 +1,12 @@
 import { useContext } from "react";
+import DateFnsAdapter from "@date-io/date-fns";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FormContext } from "../context";
+
+const dateFns = new DateFnsAdapter();
 
 const Review = () => {
   const {
@@ -29,7 +32,7 @@ const Review = () => {
     record,
     installments,
     initialMonth,
-    months,
+    months
   } = useContext(FormContext);
 
   return (
@@ -83,10 +86,16 @@ const Review = () => {
           <ListItemText primary="CEP" secondary={postal} />
         </ListItem>
         <ListItem>
-          <ListItemText primary="Início de Atividades" secondary={since} />
+          <ListItemText
+            primary="Início de Atividades"
+            secondary={dateFns.format(dateFns.date(since), "dd/MM/yyyy")}
+          />
         </ListItem>
         <ListItem>
-          <ListItemText primary="Cliente Desde" secondary={member} />
+          <ListItemText
+            primary="Cliente Desde"
+            secondary={dateFns.format(dateFns.date(member), "dd/MM/yyyy")}
+          />
         </ListItem>
       </List>
       <Typography variant="h6" gutterBottom>
@@ -94,7 +103,7 @@ const Review = () => {
       </Typography>
       <List disablePadding>
         <ListItem>
-          <ListItemText primary="Valor do Débito" secondary={amount} />
+          <ListItemText primary="Valor da Parcela" secondary={amount} />
         </ListItem>
         <ListItem>
           <ListItemText primary="Mês Inicial" secondary={initialMonth.name} />

@@ -25,7 +25,7 @@ const Debt = () => {
     setInstallments,
     initialMonth,
     setInitialMonth,
-    months,
+    months
   } = useContext(FormContext);
 
   return (
@@ -36,7 +36,7 @@ const Debt = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
-            label="Valor do débito"
+            label="Valor da Parcela"
             name="amount"
             value={amount}
             onChange={({ target: { value } }) => {
