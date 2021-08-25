@@ -1,6 +1,7 @@
 {
   "name": "frontend-david",
   "version": "0.1.0",
+  "homepage": "https://mdmundo.gitlab.io/david-app",
   "description": "Nothing to see here.",
   "main": "src/index.js",
   "dependencies": {
