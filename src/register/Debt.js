@@ -8,6 +8,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+const percentBounds = (input) =>
+  input >= 0 ? (input <= 100 ? input : 100) : 0;
 
 const Debt = () => {
   const {
@@ -28,6 +32,11 @@ const Debt = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">R$</InputAdornment>
+              ),
+            }}
             label="Valor do Serviço"
             value={total}
             onChange={({ target: { value } }) => {
@@ -54,10 +63,13 @@ const Debt = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
             label="Desconto"
             value={discount}
             onChange={({ target: { value } }) => {
-              setDiscount(value);
+              setDiscount(percentBounds(value));
             }}
             fullWidth
           />
