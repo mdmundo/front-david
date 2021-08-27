@@ -2,16 +2,13 @@ import { useContext } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import { FormContext } from "../context";
-
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
-const percentBounds = (input) =>
-  input >= 0 ? (input <= 100 ? input : 100) : 0;
+import { FormContext } from "../context";
+import { percentBounds } from "../common/utils";
 
 const Debt = () => {
   const {

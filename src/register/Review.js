@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FormContext } from "../context";
+import { currencyBrlFormat, percentFormat } from "../common/utils";
 
 const dateFns = new DateFnsAdapter();
 
@@ -100,19 +101,27 @@ const Review = () => {
       </Typography>
       <List disablePadding>
         <ListItem>
-          <ListItemText primary="Valor do Serviço" secondary={`R$ ${total}`} />
+          <ListItemText
+            primary="Valor do Serviço"
+            secondary={currencyBrlFormat(total)}
+          />
         </ListItem>
         <ListItem>
-          <ListItemText primary="Desconto" secondary={`${discount}%`} />
+          <ListItemText
+            primary="Desconto"
+            secondary={percentFormat(discount)}
+          />
         </ListItem>
         <ListItem>
           <ListItemText
             primary="Valor da Parcela"
-            secondary={`R$ ${installment({
-              discount,
-              total,
-              installments: installments(initialMonth),
-            })}`}
+            secondary={currencyBrlFormat(
+              installment({
+                discount,
+                total,
+                installments: installments(initialMonth),
+              })
+            )}
           />
         </ListItem>
         <ListItem>
