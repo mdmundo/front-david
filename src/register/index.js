@@ -5,6 +5,9 @@ import { FormContext } from "../context";
 import cities from "./cities";
 
 const update = (state, update) => update;
+const installment = ({ discount, total, installments }) =>
+  ((total * ((100 - discount) / 100)) / installments).toFixed(0);
+const installments = ({ index }) => 12 - index + 1;
 
 const categories = ["Serviço", "Comércio", "Indústria"];
 const taxes = ["Simples Nacional", "Lucro Presumido", "Lucro Real"];
@@ -71,14 +74,10 @@ const Register = () => {
   const [member, setMember] = useReducer(update, new Date());
 
   // Debt Form
-  const [amount, setAmount] = useReducer(update);
-  const [paid, setPaid] = useReducer(update);
-  const [date, setDate] = useReducer(update);
-  const [ref, setRef] = useReducer(update);
-  const [record, setRecord] = useReducer(update);
+  const [total, setTotal] = useReducer(update, 0);
+  const [discount, setDiscount] = useReducer(update, 0);
 
   // Auxiliary Defs
-  const [installments, setInstallments] = useReducer(update);
   const [initialMonth, setInitialMonth] = useReducer(update, months[0]);
   const [availableCities, setAvailableCities] = useReducer(update);
 
@@ -121,20 +120,14 @@ const Register = () => {
         setSince,
         member,
         setMember,
-        amount,
-        setAmount,
-        paid,
-        setPaid,
-        date,
-        setDate,
-        ref,
-        setRef,
-        record,
-        setRecord,
-        installments,
-        setInstallments,
+        total,
+        setTotal,
+        discount,
+        setDiscount,
         initialMonth,
         setInitialMonth,
+        installment,
+        installments,
         months,
         categories,
         taxes,

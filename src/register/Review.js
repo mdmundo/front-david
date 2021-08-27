@@ -25,14 +25,11 @@ const Review = () => {
     postal,
     since,
     member,
-    amount,
-    paid,
-    date,
-    ref,
-    record,
-    installments,
+    total,
+    discount,
     initialMonth,
-    months
+    installment,
+    installments,
   } = useContext(FormContext);
 
   return (
@@ -103,7 +100,20 @@ const Review = () => {
       </Typography>
       <List disablePadding>
         <ListItem>
-          <ListItemText primary="Valor da Parcela" secondary={amount} />
+          <ListItemText primary="Valor do Serviço" secondary={`R$ ${total}`} />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Desconto" secondary={`${discount}%`} />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            primary="Valor da Parcela"
+            secondary={`R$ ${installment({
+              discount,
+              total,
+              installments: installments(initialMonth),
+            })}`}
+          />
         </ListItem>
         <ListItem>
           <ListItemText primary="Mês Inicial" secondary={initialMonth.name} />
@@ -111,7 +121,7 @@ const Review = () => {
         <ListItem>
           <ListItemText
             primary="Parcelas até o fim do ano"
-            secondary={12 - initialMonth.index + 1}
+            secondary={installments(initialMonth)}
           />
         </ListItem>
       </List>

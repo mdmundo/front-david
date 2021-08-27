@@ -11,21 +11,13 @@ import Select from "@material-ui/core/Select";
 
 const Debt = () => {
   const {
-    amount,
-    setAmount,
-    paid,
-    setPaid,
-    date,
-    setDate,
-    ref,
-    setRef,
-    record,
-    setRecord,
-    installments,
-    setInstallments,
+    discount,
+    setDiscount,
+    total,
+    setTotal,
     initialMonth,
     setInitialMonth,
-    months
+    months,
   } = useContext(FormContext);
 
   return (
@@ -36,11 +28,10 @@ const Debt = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
-            label="Valor da Parcela"
-            name="amount"
-            value={amount}
+            label="Valor do Serviço"
+            value={total}
             onChange={({ target: { value } }) => {
-              setAmount(value);
+              setTotal(value);
             }}
             fullWidth
           />
@@ -60,6 +51,16 @@ const Debt = () => {
               ))}
             </Select>
           </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Desconto"
+            value={discount}
+            onChange={({ target: { value } }) => {
+              setDiscount(value);
+            }}
+            fullWidth
+          />
         </Grid>
       </Grid>
     </>

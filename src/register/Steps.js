@@ -61,8 +61,11 @@ const Steps = () => {
     postal,
     since,
     member,
-    amount,
+    total,
+    discount,
     initialMonth,
+    installment,
+    installments,
   } = useContext(FormContext);
   const { axios } = useContext(AppContext);
 
@@ -94,11 +97,16 @@ const Steps = () => {
         member,
       })
       .then(({ data: { id } }) => {
-        const empty = new Array(12 - initialMonth.index + 1);
+        const empty = new Array(installments(initialMonth));
         empty.fill(0);
 
         const today = new Date();
         const year = today.getFullYear();
+        const amount = installment({
+          discount,
+          total,
+          installments: installments(initialMonth),
+        });
         const debts = empty.map((_, i) => ({
           amount,
           ref: new Date(`${year}-${initialMonth.index + i}-01`),
@@ -107,6 +115,8 @@ const Steps = () => {
         axios
           .post("/debts", {
             member: id,
+            total,
+            discount,
             debts,
           })
           .then(({ data }) => {
