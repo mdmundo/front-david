@@ -13,7 +13,7 @@ import Register from "./register";
 import AppContext, { ThemeContext } from "./context";
 
 const update = (state, update) => update;
-const url = process.env.APP_BACKEND_URL || "https://0l5ox8r4.anyfiddle.run";
+const url = process.env.REACT_APP_API_URL || "https://0l5ox8r4.anyfiddle.run";
 
 const App = () => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
