@@ -11,6 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { FormContext } from "../context";
 import DatePicker from "./DatePicker";
+import { CepMask, CnpjMask, CpfMask } from "./Masks";
 
 const Client = () => {
   const {
@@ -47,7 +48,7 @@ const Client = () => {
     categories,
     taxes,
     cities,
-    states
+    states,
   } = useContext(FormContext);
 
   return (
@@ -58,6 +59,9 @@ const Client = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
+            InputProps={{
+              inputComponent: CnpjMask,
+            }}
             label="CNPJ"
             disabled={type !== "cnpj"}
             value={cnpj}
@@ -69,6 +73,9 @@ const Client = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            InputProps={{
+              inputComponent: CpfMask,
+            }}
             label="CPF"
             value={cpf}
             onChange={({ target: { value } }) => {
@@ -201,6 +208,9 @@ const Client = () => {
         </Grid>
         <Grid item xs={12} sm={4}>
           <TextField
+            InputProps={{
+              inputComponent: CepMask,
+            }}
             label="CEP"
             value={postal}
             onChange={({ target: { value } }) => {
@@ -214,7 +224,7 @@ const Client = () => {
             {...{
               label: "Início de Atividades",
               date: since,
-              setDate: setSince
+              setDate: setSince,
             }}
           />
         </Grid>

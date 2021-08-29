@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { FormContext } from "../context";
 import { percentBounds } from "../common/utils";
+import { CurrencyMask } from "./Masks";
 
 const Debt = () => {
   const {
@@ -33,11 +34,12 @@ const Debt = () => {
               startAdornment: (
                 <InputAdornment position="start">R$</InputAdornment>
               ),
+              inputComponent: CurrencyMask,
             }}
             label="Valor do Serviço"
-            value={total}
+            value={total.mask}
             onChange={({ target: { value } }) => {
-              setTotal(value);
+              setTotal({ mask: value, int: value.replace(",", "") });
             }}
             fullWidth
           />

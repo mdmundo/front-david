@@ -103,7 +103,7 @@ const Review = () => {
         <ListItem>
           <ListItemText
             primary="Valor do Serviço"
-            secondary={currencyBrlFormat(total)}
+            secondary={currencyBrlFormat(total.int)}
           />
         </ListItem>
         <ListItem>
@@ -118,7 +118,7 @@ const Review = () => {
             secondary={currencyBrlFormat(
               installment({
                 discount,
-                total,
+                total: total.int,
                 installments: installments(initialMonth),
               })
             )}

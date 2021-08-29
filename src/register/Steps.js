@@ -104,7 +104,7 @@ const Steps = () => {
         const year = today.getFullYear();
         const amount = installment({
           discount,
-          total,
+          total: total.int,
           installments: installments(initialMonth),
         });
         const debts = empty.map((_, i) => ({
@@ -115,7 +115,7 @@ const Steps = () => {
         axios
           .post("/debts", {
             member: id,
-            total,
+            total: total.int,
             discount,
             debts,
           })

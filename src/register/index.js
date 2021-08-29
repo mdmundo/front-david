@@ -10,7 +10,7 @@ const installment = ({ discount, total, installments }) =>
 const installments = ({ index }) => 12 - index + 1;
 
 const categories = ["Serviço", "Comércio", "Indústria"];
-const taxes = ["Simples Nacional", "Lucro Presumido", "Lucro Real"];
+const taxes = ["Simples Nacional", "Lucro Presumido", "Lucro Real", "MEI"];
 const months = [
   { index: 1, name: "Janeiro" },
   { index: 2, name: "Fevereiro" },
