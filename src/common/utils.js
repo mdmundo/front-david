@@ -14,4 +14,6 @@ const percentFormat = (input) => input.replace(/\d+/, "$&%");
 const percentBounds = (input) =>
   input >= 0 ? (input <= 100 ? input : "100") : "0";
 
-export { currencyBrlFormat, percentFormat, percentBounds };
+const dateFormat = (input) => input.split("-").reverse().join("/");
+
+export { currencyBrlFormat, percentFormat, percentBounds, dateFormat };

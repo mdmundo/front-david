@@ -19,6 +19,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import AppContext from "../context";
 import Message from "../common/Message";
+import { dateFormat } from "../common/utils";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -136,10 +137,16 @@ const Table = ({ data: remoteData }) => {
     {
       name: "since",
       label: "Início de Atividades",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => dateFormat(value),
+      },
     },
     {
       name: "member",
       label: "Cliente Desde",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => dateFormat(value),
+      },
     },
     {
       name: "id",
