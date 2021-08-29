@@ -14,9 +14,4 @@ const percentFormat = (input) => input.replace(/\d+/, "$&%");
 const percentBounds = (input) =>
   input >= 0 ? (input <= 100 ? input : "100") : "0";
 
-const updateCurrency = (input) => {
-  input.replace(/(,)(\d)(\d\d)$/, "$2$1$3");
-  input.replace(/(\d)(\d)(,)(\d)$/, "$1$3$2$4");
-};
-
 export { currencyBrlFormat, percentFormat, percentBounds };
