@@ -12,7 +12,7 @@ const currencyBrlFormat = (input) =>
 const percentFormat = (input) => input.replace(/\d+/, "$&%");
 
 const percentBounds = (input) =>
-  input >= 0 ? (input <= 100 ? input : "100") : "0";
+  parseInt(input) >= 0 ? (parseInt(input) <= 100 ? input : "100") : "0";
 
 const dateFormat = (input) => input.split("-").reverse().join("/");
 
