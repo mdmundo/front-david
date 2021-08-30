@@ -39,6 +39,12 @@ const Debt = () => {
             label="Valor do Serviço"
             value={total.mask}
             onChange={({ target: { value } }) => {
+              if (value.length === 3) {
+                value = `0${value}`;
+              } else if (value.length === 5) {
+                value = value.replace(/^0/, "");
+              }
+
               setTotal({ mask: value, int: value.replace(",", "") });
             }}
             fullWidth
