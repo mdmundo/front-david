@@ -8,7 +8,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import FindInPageIcon from "@material-ui/icons/FindInPage";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -84,10 +84,10 @@ const Table = ({ data: remoteData }) => {
     },
     {
       name: "type",
-      label: "CNPJ Cadastrado?",
+      label: "Tipo de Cadastro",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          value === "cnpj" ? "Sim" : "Não",
+          value.toUpperCase(),
       },
     },
     {
@@ -173,13 +173,17 @@ const Table = ({ data: remoteData }) => {
                   color="textSecondary"
                   edge="start"
                 >
-                  <FindInPageIcon />
+                  <MonetizationOnIcon />
                 </IconButton>
               </Tooltip>
             </Grid>
             <Grid item>
               <Tooltip title="Editar">
-                <IconButton className={classes.icon} color="textSecondary">
+                <IconButton
+                  className={classes.icon}
+                  color="textSecondary"
+                  disabled
+                >
                   <EditIcon />
                 </IconButton>
               </Tooltip>
@@ -207,8 +211,9 @@ const Table = ({ data: remoteData }) => {
 
   const options = {
     filterType: "checkbox",
-    print: false,
+    download: false,
     enableNestedDataAccess: ".",
+    print: false,
     selectableRowsHideCheckboxes: true,
     textLabels: {
       body: {
