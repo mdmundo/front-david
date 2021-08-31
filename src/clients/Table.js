@@ -1,4 +1,5 @@
 import { useState, forwardRef, useContext } from "react";
+import { navigate } from "@reach/router";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
@@ -172,6 +173,9 @@ const Table = ({ data: remoteData }) => {
                   className={classes.icon}
                   color="textSecondary"
                   edge="start"
+                  onClick={() => {
+                    navigate(`/clients/${value}`);
+                  }}
                 >
                   <MonetizationOnIcon />
                 </IconButton>
