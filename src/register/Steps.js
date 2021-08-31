@@ -117,7 +117,7 @@ const Steps = () => {
             member: id,
             total: total.int,
             discount,
-            debts,
+            installments: debts,
           })
           .then(({ data }) => {
             setOpen(true);
