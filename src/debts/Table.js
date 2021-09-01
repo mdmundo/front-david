@@ -20,7 +20,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import AppContext from "../context";
 import Message from "../common/Message";
-import { dateFormat } from "../common/utils";
+import { percentFormat, currencyBrlFormat, dateFormat } from "../common/utils";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -35,7 +35,6 @@ const Transition = forwardRef((props, ref) => {
 });
 
 const Table = ({ data: remoteData }) => {
-  console.log("🚀 ~ file: Table.js ~ line 38 ~ Table ~ remoteData", remoteData);
   const [data, setData] = useState(remoteData);
 
   const [removeId, setRemoveId] = useState();
@@ -58,7 +57,7 @@ const Table = ({ data: remoteData }) => {
   const handleDeleteConfirm = () => {
     setClicked(true);
     axios
-      .delete(`/members/${removeId}`)
+      .delete(`/debts/${removeId}`)
       .then(() => {
         const refresh = data.filter((el) => el.id !== removeId);
         setData(refresh);
@@ -81,73 +80,26 @@ const Table = ({ data: remoteData }) => {
 
   const columns = [
     {
-      name: "fantasy",
-      label: "Nome Fantasia",
-    },
-    {
-      name: "type",
-      label: "Tipo de Cadastro",
+      name: "discount",
+      label: "Desconto",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          value.toUpperCase(),
+          percentFormat(value),
       },
     },
     {
-      name: "cnpj",
-      label: "CNPJ",
-    },
-    {
-      name: "cpf",
-      label: "CPF",
-    },
-    {
-      name: "ie",
-      label: "Inscrição Estadual",
-    },
-    {
-      name: "rs",
-      label: "Razão Social",
-    },
-    {
-      name: "category",
-      label: "Categoria",
-    },
-    {
-      name: "branch",
-      label: "Ramo de Atividade",
-    },
-    {
-      name: "taxing",
-      label: "Tributação",
-    },
-    {
-      name: "address",
-      label: "Endereço",
-    },
-    {
-      name: "city",
-      label: "Município",
-    },
-    {
-      name: "state",
-      label: "Unidade Federativa",
-    },
-    {
-      name: "postal",
-      label: "CEP",
-    },
-    {
-      name: "since",
-      label: "Início de Atividades",
+      name: "total",
+      label: "Valor Total",
       options: {
-        customBodyRender: (value, tableMeta, updateValue) => dateFormat(value),
+        customBodyRender: (value, tableMeta, updateValue) =>
+          currencyBrlFormat(value),
       },
     },
     {
-      name: "member",
-      label: "Cliente Desde",
+      name: "installments",
+      label: "Parcelas",
       options: {
-        customBodyRender: (value, tableMeta, updateValue) => dateFormat(value),
+        customBodyRender: (value, tableMeta, updateValue) => value.length,
       },
     },
     {
@@ -175,7 +127,7 @@ const Table = ({ data: remoteData }) => {
                   color="textSecondary"
                   edge="start"
                   onClick={() => {
-                    navigate(`/clients/${value}`);
+                    navigate(`/debts/${value}`);
                   }}
                 >
                   <MonetizationOnIcon />

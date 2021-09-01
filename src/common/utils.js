@@ -1,5 +1,5 @@
 const currencyBrlFormat = (input) =>
-  input.replace(/(^\d$)|(^\d\d$)|(^\d{3,}$)/, (m, p1, p2, p3) =>
+  `${input}`.replace(/(^\d$)|(^\d\d$)|(^\d{3,}$)/, (m, p1, p2, p3) =>
     p1
       ? `R$ 0,0${p1}`
       : p2
@@ -9,7 +9,7 @@ const currencyBrlFormat = (input) =>
       : "R$ 0,00"
   );
 
-const percentFormat = (input) => input.replace(/\d+/, "$&%");
+const percentFormat = (input) => `${input}`.replace(/\d+/, "$&%");
 
 const percentBounds = (input) =>
   parseInt(input) >= 0 ? (parseInt(input) <= 100 ? input : "100") : "0";

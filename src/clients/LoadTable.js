@@ -25,7 +25,7 @@ const LoadTable = () => {
       navigate("/");
     } else {
       axios("/members")
-        .then((clients) => {
+        .then(({ data: clients }) => {
           setAxiosData(clients);
         })
         .catch((e) => {
@@ -55,7 +55,7 @@ const LoadTable = () => {
           Adicionar Cliente
         </Button>
       </Grid>
-      <Table data={axiosData.data} />
+      <Table data={axiosData} />
     </>
   ) : error ? (
     <Error {...{ error, open, setOpen }} />
