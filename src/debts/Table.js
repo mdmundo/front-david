@@ -80,6 +80,10 @@ const Table = ({ data: remoteData }) => {
 
   const columns = [
     {
+      name: "note",
+      label: "Descrição",
+    },
+    {
       name: "total",
       label: "Valor Total",
       options: {
