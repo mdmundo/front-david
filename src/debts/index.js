@@ -1,10 +1,10 @@
 import AppBar from "../common/AppBar";
 import LoadTable from "./LoadTable";
 
-const Clients = ({ id }) => {
+const Debts = ({ id }) => {
   return (
-    <AppBar {...{ title: "Clientes", Component: <LoadTable {...{ id }} /> }} />
+    <AppBar {...{ title: "Débitos", Component: <LoadTable {...{ id }} /> }} />
   );
 };
 
-export { Clients as default };
+export { Debts as default };

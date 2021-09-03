@@ -80,14 +80,6 @@ const Table = ({ data: remoteData }) => {
 
   const columns = [
     {
-      name: "discount",
-      label: "Desconto",
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) =>
-          percentFormat(value),
-      },
-    },
-    {
       name: "total",
       label: "Valor Total",
       options: {
@@ -96,10 +88,34 @@ const Table = ({ data: remoteData }) => {
       },
     },
     {
+      name: "discount",
+      label: "Desconto",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) =>
+          percentFormat(value),
+      },
+    },
+    {
+      name: "installments",
+      label: "Valor da Parcela",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) =>
+          currencyBrlFormat(value[0].amount),
+      },
+    },
+    {
       name: "installments",
       label: "Parcelas",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => value.length,
+      },
+    },
+    {
+      name: "installments",
+      label: "Pago",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) =>
+          value.filter((el) => el.paid).length,
       },
     },
     {
@@ -211,7 +227,7 @@ const Table = ({ data: remoteData }) => {
   return (
     <>
       <MUIDataTable
-        title={"Lista de Clientes"}
+        title={"Lista de Débitos"}
         data={data}
         columns={columns}
         options={options}
