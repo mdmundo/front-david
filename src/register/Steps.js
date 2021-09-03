@@ -111,7 +111,6 @@ const Steps = () => {
         const debts = empty.map((_, i) => ({
           amount,
           ref: new Date(`${year}-${initialMonth.index + i}-01`),
-          note,
           deadline:
             initialMonth.index + i === 12
               ? new Date(`${year + 1}-01-${deadline}`)
@@ -123,6 +122,7 @@ const Steps = () => {
             member: id,
             total: total.int,
             discount,
+            note,
             installments: debts,
           })
           .then(({ data }) => {
