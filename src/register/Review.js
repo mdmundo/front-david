@@ -119,7 +119,6 @@ const Review = () => {
               installment({
                 discount,
                 total: total.int,
-                installments: installments(initialMonth),
               })
             )}
           />

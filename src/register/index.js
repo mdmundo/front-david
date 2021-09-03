@@ -5,8 +5,8 @@ import { FormContext } from "../context";
 import cities from "./cities";
 
 const update = (state, update) => update;
-const installment = ({ discount, total, installments }) =>
-  ((total * ((100 - discount) / 100)) / installments).toFixed(0);
+const installment = ({ discount, total }) =>
+  (total * ((100 - discount) / 100)).toFixed(0);
 const installments = ({ index }) => 12 - index + 1;
 
 const categories = ["Serviço", "Comércio", "Indústria"];

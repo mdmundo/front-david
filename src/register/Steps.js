@@ -105,7 +105,6 @@ const Steps = () => {
         const amount = installment({
           discount,
           total: total.int,
-          installments: installments(initialMonth),
         });
         const debts = empty.map((_, i) => ({
           amount,
