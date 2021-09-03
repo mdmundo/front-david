@@ -31,6 +31,8 @@ const Review = () => {
     initialMonth,
     installment,
     installments,
+    note,
+    deadline,
   } = useContext(FormContext);
 
   return (
@@ -128,9 +130,18 @@ const Review = () => {
         </ListItem>
         <ListItem>
           <ListItemText
+            primary="Vencimento"
+            secondary={`Dia ${deadline} do mês seguinte`}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
             primary="Parcelas até o fim do ano"
             secondary={installments(initialMonth)}
           />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Descrição" secondary={note} />
         </ListItem>
       </List>
     </>

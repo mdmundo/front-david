@@ -66,6 +66,8 @@ const Steps = () => {
     initialMonth,
     installment,
     installments,
+    note,
+    deadline,
   } = useContext(FormContext);
   const { axios } = useContext(AppContext);
 
@@ -109,6 +111,11 @@ const Steps = () => {
         const debts = empty.map((_, i) => ({
           amount,
           ref: new Date(`${year}-${initialMonth.index + i}-01`),
+          note,
+          deadline:
+            initialMonth.index + i === 12
+              ? new Date(`${year + 1}-01-${deadline}`)
+              : new Date(`${year}-${initialMonth.index + i + 1}-${deadline}`),
         }));
 
         axios

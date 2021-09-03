@@ -19,6 +19,10 @@ const Debt = () => {
     setTotal,
     initialMonth,
     setInitialMonth,
+    note,
+    setNote,
+    deadline,
+    setDeadline,
     months,
   } = useContext(FormContext);
 
@@ -51,6 +55,19 @@ const Debt = () => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
+          <TextField
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+            label="Desconto"
+            value={discount}
+            onChange={({ target: { value } }) => {
+              setDiscount(percentBounds(value));
+            }}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel>Mês Inicial</InputLabel>
             <Select
@@ -67,14 +84,28 @@ const Debt = () => {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel>Dia do Vencimento</InputLabel>
+            <Select
+              value={deadline}
+              onChange={({ target: { value } }) => {
+                setDeadline(value);
+              }}
+            >
+              {Array(28)
+                .fill()
+                .map((el, i) => (
+                  <MenuItem value={i + 1}>{i + 1}</MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <TextField
-            InputProps={{
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}
-            label="Desconto"
-            value={discount}
+            label="Descrição"
+            value={note}
             onChange={({ target: { value } }) => {
-              setDiscount(percentBounds(value));
+              setNote(value);
             }}
             fullWidth
           />

@@ -76,6 +76,8 @@ const Register = () => {
   // Debt Form
   const [total, setTotal] = useReducer(update, { int: "0", mask: "0,00" });
   const [discount, setDiscount] = useReducer(update, "0");
+  const [note, setNote] = useReducer(update);
+  const [deadline, setDeadline] = useReducer(update, "1");
 
   // Auxiliary Defs
   const [initialMonth, setInitialMonth] = useReducer(update, months[0]);
@@ -126,6 +128,10 @@ const Register = () => {
         setDiscount,
         initialMonth,
         setInitialMonth,
+        note,
+        setNote,
+        deadline,
+        setDeadline,
         installment,
         installments,
         months,
