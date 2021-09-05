@@ -51,6 +51,7 @@ const LoadTable = ({ id }) => {
       >
         <Button
           size="small"
+          disabled
           onClick={() => {
             // navigate(`/clients/${id}/new`);
           }}
