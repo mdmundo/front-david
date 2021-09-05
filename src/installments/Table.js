@@ -21,7 +21,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import AppContext from "../context";
 import Message from "../common/Message";
-import { percentFormat, currencyBrlFormat, dateFormat } from "../common/utils";
+import {
+  percentFormat,
+  currencyBrlFormat,
+  dateFormat,
+  dateTimeFormat,
+} from "../common/utils";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -115,7 +120,7 @@ const Table = ({ data: remoteData }) => {
       label: "Pagamento",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          value ? dateFormat(value) : "Sem Data",
+          value ? dateTimeFormat(value) : "Sem Data",
       },
     },
     {
