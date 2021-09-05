@@ -10,6 +10,7 @@ import Clients from "./clients";
 import Debts from "./debts";
 import Auth from "./auth";
 import Register from "./register";
+import Installments from "./installments";
 import AppContext, { ThemeContext } from "./context";
 
 const update = (state, update) => update;
@@ -63,6 +64,7 @@ const App = () => {
             <Login path="/" />
             <Clients path="clients" />
             <Debts path="clients/:id" />
+            <Installments path="debts/:id" />
             <Auth path="auth" />
             <Register path="new" />
           </Router>
