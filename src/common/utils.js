@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 const currencyBrlFormat = (input) =>
   `${input}`.replace(/(^\d$)|(^\d\d$)|(^\d{3,}$)/, (m, p1, p2, p3) =>
     p1
@@ -15,6 +17,15 @@ const percentBounds = (input) =>
   parseInt(input) >= 0 ? (parseInt(input) <= 100 ? input : "100") : "0";
 
 const dateFormat = (input) =>
-  input ? input.split("-").reverse().join("/") : "";
+  input ? format(new Date(input), "dd/MM/yyyy") : "";
 
-export { currencyBrlFormat, percentFormat, percentBounds, dateFormat };
+const dateTimeFormat = (input) =>
+  input ? format(new Date(input), "dd/MM/yyyy' às 'hh:mm") : "";
+
+export {
+  currencyBrlFormat,
+  percentFormat,
+  percentBounds,
+  dateFormat,
+  dateTimeFormat,
+};
