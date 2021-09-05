@@ -9,7 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -150,7 +150,7 @@ const Table = ({ data: remoteData }) => {
                     navigate(`/debts/${value}`);
                   }}
                 >
-                  <MonetizationOnIcon />
+                  <FindInPageIcon />
                 </IconButton>
               </Tooltip>
             </Grid>
