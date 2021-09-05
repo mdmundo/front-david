@@ -263,7 +263,7 @@ const Table = ({ data: remoteData }) => {
         <DialogContent>
           <DialogContentText>
             {
-              "Deseja remover este cliente permanentemente? Você não será capaz de desfazer esta ação."
+              "Deseja remover este débito permanentemente? Você não será capaz de desfazer esta ação."
             }
           </DialogContentText>
         </DialogContent>
