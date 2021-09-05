@@ -139,7 +139,8 @@ const Table = ({ data: remoteData }) => {
               className={classes.icon}
               color="textSecondary"
               edge="start"
-              disabled={!value}
+              // disabled={!value}
+              disabled
               onClick={() => {
                 console.log(value);
               }}
