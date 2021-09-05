@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import HomeIcon from "@material-ui/icons/Home";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Container from "@material-ui/core/Container";
 import AppContext, { ThemeContext } from "../context";
 
@@ -38,14 +38,14 @@ const LocalAppBar = ({ title, Component }) => {
             {title}
           </Typography>
           <div className={classes.grow} />
-          <Tooltip title="Página Inicial">
+          <Tooltip title="Voltar">
             <IconButton
               color="inherit"
               onClick={() => {
-                navigate("/clients");
+                navigate(-1);
               }}
             >
-              <HomeIcon />
+              <KeyboardBackspaceIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title={isDark ? "Claro" : "Escuro"}>
