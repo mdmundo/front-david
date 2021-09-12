@@ -149,7 +149,11 @@ const Table = ({ data: remoteData }) => {
             >
               <Avatar
                 variant="rounded"
-                src={`${url}${value.formats?.thumbnail?.url || value.url}`}
+                src={
+                  value
+                    ? `${url}${value.formats?.thumbnail?.url || value.url}`
+                    : false
+                }
               >
                 <ReceiptIcon />
               </Avatar>
