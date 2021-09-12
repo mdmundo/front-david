@@ -5,7 +5,11 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FormContext } from "../context";
-import { currencyBrlFormat, percentFormat } from "../common/utils";
+import {
+  currencyBrlFormat,
+  currencyBrlFormatWithDots,
+  percentFormat,
+} from "../common/utils";
 
 const dateFns = new DateFnsAdapter();
 
@@ -105,7 +109,7 @@ const Review = () => {
         <ListItem>
           <ListItemText
             primary="Valor do Serviço"
-            secondary={currencyBrlFormat(total.int)}
+            secondary={currencyBrlFormatWithDots(total.int)}
           />
         </ListItem>
         <ListItem>
@@ -117,7 +121,7 @@ const Review = () => {
         <ListItem>
           <ListItemText
             primary="Valor da Parcela"
-            secondary={currencyBrlFormat(
+            secondary={currencyBrlFormatWithDots(
               installment({
                 discount,
                 total: total.int,

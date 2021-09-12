@@ -9,8 +9,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import FindInPageIcon from "@material-ui/icons/FindInPage";
 import ReceiptIcon from "@material-ui/icons/Receipt";
+import Avatar from "@material-ui/core/Avatar";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -19,11 +19,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
+
 import AppContext from "../context";
 import Message from "../common/Message";
 import {
   percentFormat,
   currencyBrlFormat,
+  currencyBrlFormatWithDots,
   dateFormat,
   dateTimeFormat,
 } from "../common/utils";
@@ -50,7 +52,7 @@ const Table = ({ data: remoteData }) => {
   const [resultOpen, setResultOpen] = useState(false);
   const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
 
-  const { axios } = useContext(AppContext);
+  const { axios, url } = useContext(AppContext);
 
   const handleClickOpenOptions = () => {
     setOpenOptions(true);
@@ -90,7 +92,7 @@ const Table = ({ data: remoteData }) => {
       label: "Valor",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          currencyBrlFormat(value),
+          currencyBrlFormatWithDots(value),
       },
     },
     {
@@ -98,7 +100,7 @@ const Table = ({ data: remoteData }) => {
       label: "Pago",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          value ? "Sim" : "Não",
+          value ? "✔️" : "❌",
       },
     },
     {
@@ -139,13 +141,18 @@ const Table = ({ data: remoteData }) => {
               className={classes.icon}
               color="textSecondary"
               edge="start"
-              // disabled={!value}
-              disabled
+              disabled={!value}
+              // disabled
               onClick={() => {
                 console.log(value);
               }}
             >
-              <ReceiptIcon />
+              <Avatar
+                variant="rounded"
+                src={`${url}${value.formats?.thumbnail?.url || value.url}`}
+              >
+                <ReceiptIcon />
+              </Avatar>
             </IconButton>
           </Tooltip>
         ),

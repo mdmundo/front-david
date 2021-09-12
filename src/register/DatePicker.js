@@ -4,7 +4,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
-  KeyboardDateTimePicker
+  KeyboardDateTimePicker,
 } from "@material-ui/pickers";
 
 const DatePicker = ({ label, date, setDate }) => {
@@ -46,7 +46,7 @@ const DateTimePicker = ({ label, dateTime, setDateTime }) => {
       <KeyboardDateTimePicker
         cancelLabel="Cancelar"
         ampm={false}
-        format="dd/MM/yyyy' às 'hh:mm"
+        format="dd/MM/yyyy' às 'HH:mm"
         label={label}
         value={dateTime}
         onChange={(dateTime) => {

@@ -60,6 +60,7 @@ const Debt = () => {
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
             label="Desconto"
+            type="number"
             value={discount}
             onChange={({ target: { value } }) => {
               setDiscount(percentBounds(value));

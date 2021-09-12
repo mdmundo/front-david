@@ -20,7 +20,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import AppContext from "../context";
 import Message from "../common/Message";
-import { percentFormat, currencyBrlFormat, dateFormat } from "../common/utils";
+import {
+  percentFormat,
+  currencyBrlFormat,
+  dateFormat,
+  currencyBrlFormatWithDots,
+} from "../common/utils";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -88,7 +93,7 @@ const Table = ({ data: remoteData }) => {
       label: "Valor Total",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          currencyBrlFormat(value),
+          currencyBrlFormatWithDots(value),
       },
     },
     {
@@ -104,7 +109,7 @@ const Table = ({ data: remoteData }) => {
       label: "Valor da Parcela",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          currencyBrlFormat(value[0].amount),
+          currencyBrlFormatWithDots(value[0].amount),
       },
     },
     {
