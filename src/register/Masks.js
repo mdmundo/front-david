@@ -85,10 +85,29 @@ const CurrencyMask = ({ inputRef, ...other }) => {
         inputRef(ref ? ref.inputElement : null);
       }}
       mask={(input) => {
-        const rmComma = input.replace(",", "");
-        const mask = Array(rmComma.length).fill(/\d/);
-        mask.splice(-2, 0, ",");
-        return mask;
+        console.log(input.length);
+        return [
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          ",",
+          /\d/,
+          /\d/,
+        ].slice(-input.length);
       }}
       placeholderChar={"\u2000"}
     />

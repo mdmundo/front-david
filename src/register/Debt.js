@@ -38,18 +38,32 @@ const Debt = () => {
               startAdornment: (
                 <InputAdornment position="start">R$</InputAdornment>
               ),
-              inputComponent: CurrencyMask,
             }}
             label="Valor do Serviço"
             value={total.mask}
             onChange={({ target: { value } }) => {
-              if (value.length === 3) {
-                value = `0${value}`;
-              } else if (value.length === 5) {
-                value = value.replace(/^0/, "");
-              }
-
-              setTotal({ mask: value, int: value.replace(",", "") });
+              // This regex supports until 21 chars
+              setTotal({
+                mask:
+                  value.length > 21
+                    ? "0,00"
+                    : `${parseInt(value.replaceAll(/\.|,/g, ""))}`.replace(
+                        /(^\d$)|(^\d\d$)|(^\d{1,2})?(\d{3})?(\d{3})?(\d{3})?(\d{3})?(\d{2}$)/,
+                        (m, p1, p2, p3, p4, p5, p6, p7, p8) =>
+                          p1
+                            ? `0,0${p1}`
+                            : p2
+                            ? `0,${p2}`
+                            : p8
+                            ? `${p3 ? p3 : ""}${p3 && p4 ? "." : ""}${
+                                p4 ? p4 : ""
+                              }${p5 ? "." : ""}${p5 ? p5 : ""}${p6 ? "." : ""}${
+                                p6 ? p6 : ""
+                              }${p7 ? "." : ""}${p7 ? p7 : ""},${p8}`
+                            : "0,00"
+                      ),
+                int: value.replaceAll(/\.|,/g, ""),
+              });
             }}
             fullWidth
           />
