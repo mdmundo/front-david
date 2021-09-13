@@ -28,14 +28,23 @@ const currencyBrlFormatWithDots = (input) =>
         : "R$ 0,00"
   );
 
-const percentFormat = (input) => `${input}`.replace(/\d+/, "$&%");
+const percentFormat = (input) => `${input}%`;
 
 const percentBounds = (input) =>
-  parseInt(input) >= 0 ? (parseInt(input) <= 100 ? input : "100") : "0";
+  parseInt(input) >= 0
+    ? parseInt(input) <= 100
+      ? `${parseInt(input)}`
+      : "100"
+    : "0";
 
-const dateFormat = (input) =>
-  input ? format(new Date(input), "dd/MM/yyyy") : "";
-
+const dateFormat = (input) => {
+  const date = new Date(input);
+  return date
+    ? `${`${date.getUTCDate()}`.padStart(2, "0")}/${`${
+        date.getUTCMonth() + 1
+      }`.padStart(2, "0")}/${date.getUTCFullYear()}`
+    : "";
+};
 const dateTimeFormat = (input) =>
   input ? format(new Date(input), "dd/MM/yyyy' às 'HH:mm") : "";
 
