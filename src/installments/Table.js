@@ -1,5 +1,4 @@
-import { useState, forwardRef, useContext } from "react";
-import { navigate } from "@reach/router";
+import { useState, useContext } from "react";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
 import { makeStyles } from "@material-ui/core";
@@ -12,23 +11,13 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import Avatar from "@material-ui/core/Avatar";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
-
 import AppContext from "../context";
-import Message from "../common/Message";
 import {
-  percentFormat,
-  currencyBrlFormat,
   currencyBrlFormatWithDots,
   dateFormat,
   dateTimeFormat,
 } from "../common/utils";
+import RemoveDialog from "../common/RemoveDialog";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -38,51 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Transition = forwardRef((props, ref) => {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
-const Table = ({ data: remoteData }) => {
+const Table = ({ data: remoteData, id: debtId }) => {
   const [data, setData] = useState(remoteData);
 
+  const [updateURL, setUpdateURL] = useState(`/debts/${debtId}`);
   const [removeId, setRemoveId] = useState();
-  const [openOptions, setOpenOptions] = useState(false);
-  const [clicked, setClicked] = useState(false);
-
-  const [resultOpen, setResultOpen] = useState(false);
-  const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const { axios, url } = useContext(AppContext);
-
-  const handleClickOpenOptions = () => {
-    setOpenOptions(true);
-  };
-
-  const handleCloseOptions = () => {
-    setOpenOptions(false);
-  };
-
-  const handleDeleteConfirm = () => {
-    setClicked(true);
-    axios
-      .delete(`/debts/${removeId}`)
-      .then(() => {
-        const refresh = data.filter((el) => el.id !== removeId);
-        setData(refresh);
-        setOpenOptions(false);
-        setClicked(false);
-
-        setDeletedSuccessfully(true);
-        setResultOpen(true);
-      })
-      .catch((e) => {
-        setOpenOptions(false);
-        setClicked(false);
-
-        setDeletedSuccessfully(false);
-        setResultOpen(true);
-      });
-  };
 
   const classes = useStyles();
 
@@ -198,10 +150,9 @@ const Table = ({ data: remoteData }) => {
                   className={classes.icon}
                   color="textSecondary"
                   edge="end"
-                  disabled
                   onClick={() => {
                     setRemoveId(value);
-                    handleClickOpenOptions();
+                    setOpen(true);
                   }}
                 >
                   <DeleteForeverIcon />
@@ -265,39 +216,16 @@ const Table = ({ data: remoteData }) => {
         columns={columns}
         options={options}
       />
-      <Dialog
-        open={openOptions}
-        onClose={handleCloseOptions}
-        TransitionComponent={Transition}
-      >
-        <DialogTitle>Excluir Registro</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {
-              "Deseja remover este débito permanentemente? Você não será capaz de desfazer esta ação."
-            }
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleDeleteConfirm}
-            disabled={clicked}
-            color="secondary"
-          >
-            {clicked ? "Aguarde..." : "Deletar"}
-          </Button>
-          <Button autoFocus onClick={handleCloseOptions} color="primary">
-            Cancelar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Message
+      <RemoveDialog
+        deleteMessage="Deseja remover esta parcela permanentemente? Você não será capaz de desfazer esta ação."
         {...{
-          open: resultOpen,
-          setOpen: setResultOpen,
-          message: deletedSuccessfully
-            ? "Registro removido com sucesso😒"
-            : "Não foi possível remover o registro💩",
+          data,
+          setData,
+          open,
+          setOpen,
+          axios,
+          updateURL,
+          removeId,
         }}
       />
     </>

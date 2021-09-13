@@ -32,7 +32,7 @@ const LoadTable = ({ id }) => {
   }, []);
 
   return axiosData ? (
-    <Table data={axiosData} />
+    <Table data={axiosData} id={id} />
   ) : error ? (
     <Error {...{ error, open, setOpen }} />
   ) : (

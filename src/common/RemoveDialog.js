@@ -20,6 +20,7 @@ const RemoveDialog = ({
   setOpen,
   axios,
   removeURL,
+  updateURL,
   removeId,
 }) => {
   const [clicked, setClicked] = useState(false);
@@ -33,6 +34,30 @@ const RemoveDialog = ({
       .delete(removeURL)
       .then(() => {
         const refresh = data.filter((el) => el.id !== removeId);
+        setData(refresh);
+        setOpen(false);
+        setClicked(false);
+
+        setDeletedSuccessfully(true);
+        setResultOpen(true);
+      })
+      .catch((e) => {
+        setOpen(false);
+        setClicked(false);
+
+        setDeletedSuccessfully(false);
+        setResultOpen(true);
+      });
+  };
+
+  const handleUpdateConfirm = () => {
+    setClicked(true);
+
+    const refresh = data.filter((el) => el.id !== removeId);
+
+    axios
+      .put(updateURL, { installments: refresh })
+      .then(() => {
         setData(refresh);
         setOpen(false);
         setClicked(false);
@@ -64,7 +89,7 @@ const RemoveDialog = ({
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleDeleteConfirm}
+            onClick={updateURL ? handleUpdateConfirm : handleDeleteConfirm}
             disabled={clicked}
             color="secondary"
           >
