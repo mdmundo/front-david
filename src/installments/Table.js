@@ -18,6 +18,7 @@ import {
   dateTimeFormat,
 } from "../common/utils";
 import RemoveDialog from "../common/RemoveDialog";
+import Record from "./Record";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -33,6 +34,9 @@ const Table = ({ data: remoteData, id: debtId }) => {
   const [updateURL, setUpdateURL] = useState(`/debts/${debtId}`);
   const [removeId, setRemoveId] = useState();
   const [open, setOpen] = useState(false);
+
+  const [record, setRecord] = useState(false);
+  const [recordURL, setRecordURL] = useState(false);
 
   const { axios, url } = useContext(AppContext);
 
@@ -94,9 +98,13 @@ const Table = ({ data: remoteData, id: debtId }) => {
               color="textSecondary"
               edge="start"
               disabled={!value}
-              // disabled
               onClick={() => {
-                // console.log(value);
+                setRecordURL(
+                  value
+                    ? `${url}${value.formats?.medium?.url || value.url}`
+                    : false
+                );
+                setRecord(true);
               }}
             >
               <Avatar
@@ -228,6 +236,7 @@ const Table = ({ data: remoteData, id: debtId }) => {
           removeId,
         }}
       />
+      <Record {...{ open: record, setOpen: setRecord, url: recordURL }} />
     </>
   );
 };
