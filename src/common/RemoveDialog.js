@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
+import Message from "./Message";
 
 const Transition = forwardRef((props, ref) => {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -17,9 +18,9 @@ const RemoveDialog = ({
   setData,
   open,
   setOpen,
-  setClicked,
   axios,
-  link,
+  removeURL,
+  removeId,
 }) => {
   const [clicked, setClicked] = useState(false);
 
@@ -29,7 +30,7 @@ const RemoveDialog = ({
   const handleDeleteConfirm = () => {
     setClicked(true);
     axios
-      .delete(link)
+      .delete(removeURL)
       .then(() => {
         const refresh = data.filter((el) => el.id !== removeId);
         setData(refresh);
@@ -85,8 +86,8 @@ const RemoveDialog = ({
           open: resultOpen,
           setOpen: setResultOpen,
           message: deletedSuccessfully
-            ? "Registro removido com sucesso😒"
-            : "Não foi possível remover o registro💩",
+            ? "Registro removido com sucesso✅"
+            : "Não foi possível remover o registro❌",
         }}
       />
     </>

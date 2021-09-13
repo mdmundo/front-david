@@ -1,4 +1,4 @@
-import { useState, forwardRef, useContext } from "react";
+import { useState, useContext } from "react";
 import { navigate } from "@reach/router";
 import MUIDataTable from "mui-datatables";
 // Docs: https://github.com/gregnb/mui-datatables#readme
@@ -11,16 +11,9 @@ import Grid from "@material-ui/core/Grid";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
 import AppContext from "../context";
-import Message from "../common/Message";
 import { dateFormat } from "../common/utils";
+import RemoveDialog from "../common/RemoveDialog";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -30,51 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Transition = forwardRef((props, ref) => {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 const Table = ({ data: remoteData }) => {
   const [data, setData] = useState(remoteData);
 
+  // Used in Remove Dialog
+  const [removeURL, setRemoveURL] = useState();
   const [removeId, setRemoveId] = useState();
-  const [openOptions, setOpenOptions] = useState(false);
-  const [clicked, setClicked] = useState(false);
-
-  const [resultOpen, setResultOpen] = useState(false);
-  const [deletedSuccessfully, setDeletedSuccessfully] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const { axios } = useContext(AppContext);
-
-  const handleClickOpenOptions = () => {
-    setOpenOptions(true);
-  };
-
-  const handleCloseOptions = () => {
-    setOpenOptions(false);
-  };
-
-  const handleDeleteConfirm = () => {
-    setClicked(true);
-    axios
-      .delete(`/members/${removeId}`)
-      .then(() => {
-        const refresh = data.filter((el) => el.id !== removeId);
-        setData(refresh);
-        setOpenOptions(false);
-        setClicked(false);
-
-        setDeletedSuccessfully(true);
-        setResultOpen(true);
-      })
-      .catch((e) => {
-        setOpenOptions(false);
-        setClicked(false);
-
-        setDeletedSuccessfully(false);
-        setResultOpen(true);
-      });
-  };
 
   const classes = useStyles();
 
@@ -199,8 +156,9 @@ const Table = ({ data: remoteData }) => {
                   color="textSecondary"
                   edge="end"
                   onClick={() => {
+                    setRemoveURL(`/members/${value}`);
                     setRemoveId(value);
-                    handleClickOpenOptions();
+                    setOpen(true);
                   }}
                 >
                   <DeleteForeverIcon />
@@ -263,40 +221,9 @@ const Table = ({ data: remoteData }) => {
         columns={columns}
         options={options}
       />
-      <Dialog
-        open={openOptions}
-        onClose={handleCloseOptions}
-        TransitionComponent={Transition}
-      >
-        <DialogTitle>Excluir Registro</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {
-              "Deseja remover este cliente permanentemente? Você não será capaz de desfazer esta ação."
-            }
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleDeleteConfirm}
-            disabled={clicked}
-            color="secondary"
-          >
-            {clicked ? "Aguarde..." : "Deletar"}
-          </Button>
-          <Button autoFocus onClick={handleCloseOptions} color="primary">
-            Cancelar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Message
-        {...{
-          open: resultOpen,
-          setOpen: setResultOpen,
-          message: deletedSuccessfully
-            ? "Registro removido com sucesso😒"
-            : "Não foi possível remover o registro💩",
-        }}
+      <RemoveDialog
+        deleteMessage="Deseja remover este cliente permanentemente? Você não será capaz de desfazer esta ação."
+        {...{ data, setData, open, setOpen, axios, removeURL, removeId }}
       />
     </>
   );
