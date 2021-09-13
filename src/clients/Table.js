@@ -35,7 +35,6 @@ const Transition = forwardRef((props, ref) => {
 });
 
 const Table = ({ data: remoteData }) => {
-  console.log("🚀 ~ file: Table.js ~ line 38 ~ Table ~ remoteData", remoteData);
   const [data, setData] = useState(remoteData);
 
   const [removeId, setRemoveId] = useState();

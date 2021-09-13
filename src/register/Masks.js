@@ -85,7 +85,6 @@ const CurrencyMask = ({ inputRef, ...other }) => {
         inputRef(ref ? ref.inputElement : null);
       }}
       mask={(input) => {
-        console.log(input.length);
         return [
           /\d/,
           ".",

@@ -144,7 +144,7 @@ const Table = ({ data: remoteData }) => {
               disabled={!value}
               // disabled
               onClick={() => {
-                console.log(value);
+                // console.log(value);
               }}
             >
               <Avatar
