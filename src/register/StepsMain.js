@@ -33,7 +33,7 @@ const getStepContent = (step) => {
     case 1:
       return <Debt />;
     case 2:
-      return <Review />;
+      return <Review isClient />;
     default:
       throw new Error("Passo desconhecido.");
   }
