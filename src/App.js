@@ -9,7 +9,7 @@ import Login from "./login";
 import Clients from "./clients";
 import Debts from "./debts";
 import Auth from "./auth";
-import Register from "./register";
+import Register, { RegisterDebt } from "./register";
 import Installments from "./installments";
 import AppContext, { ThemeContext } from "./context";
 
@@ -31,7 +31,7 @@ const App = () => {
             headers: { Authorization: `Bearer ${token}` },
           })
         );
-        navigate("/clients");
+        navigate("/clients/19/new");
       }
     });
   }, []);
@@ -67,6 +67,7 @@ const App = () => {
             <Installments path="debts/:id" />
             <Auth path="auth" />
             <Register path="new" />
+            <RegisterDebt path="clients/:id/new" />
           </Router>
         </ThemeProvider>
       </ThemeContext.Provider>

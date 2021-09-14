@@ -103,7 +103,7 @@ const Review = () => {
         </ListItem>
       </List>
       <Typography variant="h6" gutterBottom>
-        Débitos
+        Débito
       </Typography>
       <List disablePadding>
         <ListItem>
