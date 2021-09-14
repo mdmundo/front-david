@@ -31,7 +31,7 @@ const App = () => {
             headers: { Authorization: `Bearer ${token}` },
           })
         );
-        navigate("/clients/19/new");
+        navigate("/clients");
       }
     });
   }, []);

@@ -172,7 +172,7 @@ const Steps = () => {
                 navigate("/clients");
               }}
             >
-              Cancelar
+              Ver Clientes
             </Button>
           </Grid>
           {activeStep !== 0 && (

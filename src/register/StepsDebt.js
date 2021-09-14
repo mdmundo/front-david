@@ -126,7 +126,7 @@ const Steps = ({ id }) => {
                 navigate("/clients");
               }}
             >
-              Cancelar
+              Ver Débitos
             </Button>
           </Grid>
           {activeStep !== 0 && (
