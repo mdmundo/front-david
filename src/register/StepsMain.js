@@ -131,7 +131,7 @@ const Steps = () => {
           })
           .catch((e) => {
             setOpen(true);
-            setMessage("Ocorreu um erro ao cadastrar os Débitos❌");
+            setMessage("Ocorreu um erro ao cadastrar o Débito❌");
           });
       })
       .catch((e) => {
