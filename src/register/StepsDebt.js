@@ -8,7 +8,6 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Client from "./Client";
 import Debt from "./Debt";
 import Review from "./Review";
 import AppContext, { FormContext } from "../context";
@@ -20,47 +19,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = [
-  "Cadastro de Cliente",
-  "Cadastro de Débito",
-  "Revisar Cadastros",
-];
+const steps = ["Cadastro de Débito", "Revisar Cadastro"];
 
 const getStepContent = (step) => {
   switch (step) {
     case 0:
-      return <Client />;
-    case 1:
       return <Debt />;
-    case 2:
-      return <Review isClient />;
+    case 1:
+      return <Review />;
     default:
       throw new Error("Passo desconhecido.");
   }
 };
 
-const Steps = () => {
+const Steps = ({ id }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState();
 
   const {
-    cnpj,
-    cpf,
-    type,
-    ie,
-    rs,
-    fantasy,
-    category,
-    branch,
-    taxing,
-    address,
-    city,
-    state,
-    postal,
-    since,
-    member,
     total,
     discount,
     initialMonth,
@@ -80,63 +58,39 @@ const Steps = () => {
   };
 
   const submit = () => {
+    const empty = new Array(installments(initialMonth));
+    empty.fill(0);
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const amount = installment({
+      discount,
+      total: total.int,
+    });
+    const debts = empty.map((_, i) => ({
+      amount,
+      ref: new Date(`${year}-${initialMonth.index + i}-01`),
+      deadline:
+        initialMonth.index + i === 12
+          ? new Date(`${year + 1}-01-${deadline}`)
+          : new Date(`${year}-${initialMonth.index + i + 1}-${deadline}`),
+    }));
+
     axios
-      .post("/members", {
-        cnpj,
-        cpf,
-        type,
-        ie,
-        rs,
-        fantasy,
-        category,
-        branch,
-        taxing,
-        address,
-        city: city.city,
-        state: state.short,
-        postal,
-        since,
-        member,
+      .post("/debts", {
+        member: id,
+        total: total.int,
+        discount,
+        note,
+        installments: debts,
       })
-      .then(({ data: { id } }) => {
-        const empty = new Array(installments(initialMonth));
-        empty.fill(0);
-
-        const today = new Date();
-        const year = today.getFullYear();
-        const amount = installment({
-          discount,
-          total: total.int,
-        });
-        const debts = empty.map((_, i) => ({
-          amount,
-          ref: new Date(`${year}-${initialMonth.index + i}-01`),
-          deadline:
-            initialMonth.index + i === 12
-              ? new Date(`${year + 1}-01-${deadline}`)
-              : new Date(`${year}-${initialMonth.index + i + 1}-${deadline}`),
-        }));
-
-        axios
-          .post("/debts", {
-            member: id,
-            total: total.int,
-            discount,
-            note,
-            installments: debts,
-          })
-          .then(({ data }) => {
-            setOpen(true);
-            setMessage("Cadastro bem sucedido✅");
-          })
-          .catch((e) => {
-            setOpen(true);
-            setMessage("Ocorreu um erro ao cadastrar o Débito❌");
-          });
+      .then(({ data }) => {
+        setOpen(true);
+        setMessage("Cadastro bem sucedido✅");
       })
       .catch((e) => {
         setOpen(true);
-        setMessage("Ocorreu um erro ao cadastrar o Cliente❌");
+        setMessage("Ocorreu um erro ao cadastrar os Débitos❌");
       });
   };
 
@@ -169,10 +123,10 @@ const Steps = () => {
             <Button
               color="secondary"
               onClick={() => {
-                navigate("/clients");
+                navigate(`/clients/${id}`);
               }}
             >
-              Ver Clientes
+              Ver Débitos
             </Button>
           </Grid>
           {activeStep !== 0 && (

@@ -13,7 +13,7 @@ import {
 
 const dateFns = new DateFnsAdapter();
 
-const Review = () => {
+const Review = ({ isClient }) => {
   const {
     cnpj,
     cpf,
@@ -41,69 +41,76 @@ const Review = () => {
 
   return (
     <>
+      {isClient && (
+        <>
+          <Typography variant="h6" gutterBottom>
+            Cliente
+          </Typography>
+          <List disablePadding>
+            {type === "cnpj" && (
+              <ListItem>
+                <ListItemText primary="CNPJ" secondary={cnpj} />
+              </ListItem>
+            )}
+            <ListItem>
+              <ListItemText primary="CPF" secondary={cpf} />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Tipo de cadastro"
+                secondary={type.toUpperCase()}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Inscrição Estadual" secondary={ie} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Razão Social" secondary={rs} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Nome Fantasia" secondary={fantasy} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Categoria" secondary={category} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Ramo de Atividade" secondary={branch} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Tributação" secondary={taxing} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Endereço" secondary={address} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Município" secondary={city.city} />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Unidade Federativa"
+                secondary={state.full}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="CEP" secondary={postal} />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Início de Atividades"
+                secondary={dateFns.format(dateFns.date(since), "dd/MM/yyyy")}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemText
+                primary="Cliente Desde"
+                secondary={dateFns.format(dateFns.date(member), "dd/MM/yyyy")}
+              />
+            </ListItem>
+          </List>
+        </>
+      )}
       <Typography variant="h6" gutterBottom>
-        Cliente
-      </Typography>
-      <List disablePadding>
-        {type === "cnpj" && (
-          <ListItem>
-            <ListItemText primary="CNPJ" secondary={cnpj} />
-          </ListItem>
-        )}
-        <ListItem>
-          <ListItemText primary="CPF" secondary={cpf} />
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary="Tipo de cadastro"
-            secondary={type.toUpperCase()}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Inscrição Estadual" secondary={ie} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Razão Social" secondary={rs} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Nome Fantasia" secondary={fantasy} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Categoria" secondary={category} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Ramo de Atividade" secondary={branch} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Tributação" secondary={taxing} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Endereço" secondary={address} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Município" secondary={city.city} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Unidade Federativa" secondary={state.full} />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="CEP" secondary={postal} />
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary="Início de Atividades"
-            secondary={dateFns.format(dateFns.date(since), "dd/MM/yyyy")}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary="Cliente Desde"
-            secondary={dateFns.format(dateFns.date(member), "dd/MM/yyyy")}
-          />
-        </ListItem>
-      </List>
-      <Typography variant="h6" gutterBottom>
-        Débitos
+        Débito
       </Typography>
       <List disablePadding>
         <ListItem>
