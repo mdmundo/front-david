@@ -136,7 +136,7 @@ const Steps = () => {
       })
       .catch((e) => {
         setOpen(true);
-        setMessage("Ocorreu um erro ao cadastrar o Cliente🤕");
+        setMessage("Ocorreu um erro ao cadastrar o Cliente❌");
       });
   };
 
