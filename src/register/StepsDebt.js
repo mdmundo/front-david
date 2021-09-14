@@ -123,7 +123,7 @@ const Steps = ({ id }) => {
             <Button
               color="secondary"
               onClick={() => {
-                navigate("/clients");
+                navigate(`/clients/${id}`);
               }}
             >
               Ver Débitos

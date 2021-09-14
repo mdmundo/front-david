@@ -54,7 +54,7 @@ const states = [
   { short: "TO", full: "Tocantins" },
 ];
 
-const Register = ({ steps }) => {
+const Register = ({ title, Component }) => {
   // Client Form
   const [cnpj, setCnpj] = useReducer(update);
   const [cpf, setCpf] = useReducer(update);
@@ -140,7 +140,7 @@ const Register = ({ steps }) => {
         states,
       }}
     >
-      <AppBar {...{ title: "Cadastro de Cliente", Component: steps }} />
+      <AppBar {...{ title, Component }} />
     </FormContext.Provider>
   );
 };
