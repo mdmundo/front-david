@@ -10,6 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
+import HomeIcon from "@material-ui/icons/Home";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Container from "@material-ui/core/Container";
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LocalAppBar = ({ title, Component }) => {
+const LocalAppBar = ({ title, Component, isInitial }) => {
   const { dispatchInstance, url } = useContext(AppContext);
   const { isDark, setDark } = useContext(ThemeContext);
   const classes = useStyles();
@@ -46,6 +47,17 @@ const LocalAppBar = ({ title, Component }) => {
               }}
             >
               <KeyboardBackspaceIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Página Inicial">
+            <IconButton
+              color="inherit"
+              disabled={isInitial}
+              onClick={() => {
+                navigate("/clients");
+              }}
+            >
+              <HomeIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title={isDark ? "Claro" : "Escuro"}>
