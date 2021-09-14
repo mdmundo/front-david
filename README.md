@@ -1,8 +1,8 @@
 ## Telas
 
 - [x] Login
-- [ ] Cadastro de clientes
+- [x] Cadastro de clientes
 - [ ] Cadastro de débito
-- [ ] Listagem dos clientes
-- [ ] Listagem de débitos de um cliente
+- [x] Listagem dos clientes
+- [x] Listagem de débitos de um cliente
 - [ ] Gerar recibo a partir de um débito quitado
