@@ -79,6 +79,7 @@ const LocalAppBar = ({ title, Component, isInitial }) => {
                   dispatchInstance(
                     axios.create({
                       baseURL: url,
+                      headers: { Authorization: "Bearer Invalid" },
                     })
                   );
                   navigate("/");
