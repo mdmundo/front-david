@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = [
   "Cadastro de Cliente",
-  "Cadastro de Débitos",
-  "Revisar Cadastro",
+  "Cadastro de Débito",
+  "Revisar Cadastros",
 ];
 
 const getStepContent = (step) => {

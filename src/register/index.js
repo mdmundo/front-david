@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from "react";
 import AppBar from "../common/AppBar";
-import Steps from "./Steps";
+import Steps from "./StepsMain";
 import { FormContext } from "../context";
 import cities from "./cities";
 
