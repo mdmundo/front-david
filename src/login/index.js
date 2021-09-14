@@ -41,6 +41,8 @@ const Login = () => {
             </Grid>
           </Grid>
         ),
+        isInitial: true,
+        isLogin: true,
       }}
     />
   );

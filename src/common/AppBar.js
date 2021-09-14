@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LocalAppBar = ({ title, Component, isInitial }) => {
+const LocalAppBar = ({ title, Component, isInitial, isLogin }) => {
   const { dispatchInstance, url } = useContext(AppContext);
   const { isDark, setDark } = useContext(ThemeContext);
   const classes = useStyles();
@@ -74,6 +74,7 @@ const LocalAppBar = ({ title, Component, isInitial }) => {
             <IconButton
               edge="end"
               color="inherit"
+              disabled={isLogin}
               onClick={() => {
                 storage.removeItem("token").then(() => {
                   dispatchInstance(
