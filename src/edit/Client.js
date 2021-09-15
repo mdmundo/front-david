@@ -51,7 +51,15 @@ const UpdateDialog = ({
     setClicked(true);
 
     axios
-      .put(updateURL, { category })
+      .put(updateURL, {
+        category,
+        branch,
+        taxing,
+        address,
+        city: city.city,
+        state: state.short,
+        postal,
+      })
       .then(({ data: updated }) => {
         const refresh = data.map((el) => (el.id === updateId ? updated : el));
 
@@ -89,7 +97,7 @@ const UpdateDialog = ({
         <DialogContent>
           <DialogContentText>
             {
-              "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes."
+              "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes.💔"
             }
           </DialogContentText>
 
