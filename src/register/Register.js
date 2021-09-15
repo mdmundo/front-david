@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import AppBar from "../common/AppBar";
 import { FormContext } from "../context";
-import cities from "./cities";
+import cities from "./cities.json";
 
 const update = (state, update) => update;
 const installment = ({ discount, total }) =>
