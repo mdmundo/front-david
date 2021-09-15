@@ -14,6 +14,7 @@ import FindInPageIcon from "@material-ui/icons/FindInPage";
 import AppContext from "../context";
 import { dateFormat } from "../common/utils";
 import RemoveDialog from "../common/RemoveDialog";
+import UpdateDialog from "../edit/Client";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -29,7 +30,12 @@ const Table = ({ data: remoteData }) => {
   // Used in Remove Dialog
   const [removeURL, setRemoveURL] = useState();
   const [removeId, setRemoveId] = useState();
-  const [open, setOpen] = useState(false);
+  const [removeOpen, setRemoveOpen] = useState(false);
+
+  const [updateURL, setUpdateURL] = useState();
+  const [updateId, setUpdateId] = useState();
+  const [updateItem, setUpdateItem] = useState();
+  const [updateOpen, setUpdateOpen] = useState(false);
 
   const { axios } = useContext(AppContext);
 
@@ -143,7 +149,45 @@ const Table = ({ data: remoteData }) => {
                 <IconButton
                   className={classes.icon}
                   color="textSecondary"
-                  disabled
+                  onClick={() => {
+                    const [
+                      fantasy,
+                      type,
+                      cnpj,
+                      cpf,
+                      ie,
+                      rs,
+                      category,
+                      branch,
+                      taxing,
+                      address,
+                      city,
+                      state,
+                      postal,
+                      since,
+                      member,
+                    ] = tableMeta.rowData;
+                    setUpdateURL(`/members/${value}`);
+                    setUpdateId(value);
+                    setUpdateItem({
+                      fantasy,
+                      type,
+                      cnpj,
+                      cpf,
+                      ie,
+                      rs,
+                      category,
+                      branch,
+                      taxing,
+                      address,
+                      city,
+                      state,
+                      postal,
+                      since,
+                      member,
+                    });
+                    setUpdateOpen(true);
+                  }}
                 >
                   <EditIcon />
                 </IconButton>
@@ -158,7 +202,7 @@ const Table = ({ data: remoteData }) => {
                   onClick={() => {
                     setRemoveURL(`/members/${value}`);
                     setRemoveId(value);
-                    setOpen(true);
+                    setRemoveOpen(true);
                   }}
                 >
                   <DeleteForeverIcon />
@@ -223,7 +267,27 @@ const Table = ({ data: remoteData }) => {
       />
       <RemoveDialog
         deleteMessage="Deseja remover este cliente permanentemente? Você não será capaz de desfazer esta ação."
-        {...{ data, setData, open, setOpen, axios, removeURL, removeId }}
+        {...{
+          data,
+          setData,
+          open: removeOpen,
+          setOpen: setRemoveOpen,
+          axios,
+          removeURL,
+          removeId,
+        }}
+      />
+      <UpdateDialog
+        {...{
+          data,
+          setData,
+          open: updateOpen,
+          setOpen: setUpdateOpen,
+          axios,
+          updateURL,
+          updateId,
+          updateItem,
+        }}
       />
     </>
   );
