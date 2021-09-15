@@ -2,57 +2,12 @@ import { useReducer, useEffect } from "react";
 import AppBar from "../common/AppBar";
 import { FormContext } from "../context";
 import * as cities from "../common/cities";
+import { categories, taxes, months, states } from "../common/lists";
 
 const update = (state, update) => update;
 const installment = ({ discount, total }) =>
   (total * ((100 - discount) / 100)).toFixed(0);
 const installments = ({ index }) => 12 - index + 1;
-
-const categories = ["Serviço", "Comércio", "Indústria"];
-const taxes = ["Simples Nacional", "Lucro Presumido", "Lucro Real", "MEI"];
-const months = [
-  { index: 1, name: "Janeiro" },
-  { index: 2, name: "Fevereiro" },
-  { index: 3, name: "Março" },
-  { index: 4, name: "Abril" },
-  { index: 5, name: "Maio" },
-  { index: 6, name: "Junho" },
-  { index: 7, name: "Julho" },
-  { index: 8, name: "Agosto" },
-  { index: 9, name: "Setembro" },
-  { index: 10, name: "Outubro" },
-  { index: 11, name: "Novembro" },
-  { index: 12, name: "Dezembro" },
-];
-const states = [
-  { short: "AC", full: "Acre" },
-  { short: "AL", full: "Alagoas" },
-  { short: "AP", full: "Amapá" },
-  { short: "AM", full: "Amazonas" },
-  { short: "BA", full: "Bahia" },
-  { short: "CE", full: "Ceará" },
-  { short: "DF", full: "Distrito Federal" },
-  { short: "ES", full: "Espírito Santo" },
-  { short: "GO", full: "Goiás" },
-  { short: "MA", full: "Maranhão" },
-  { short: "MT", full: "Mato Grosso" },
-  { short: "MS", full: "Mato Grosso do Sul" },
-  { short: "MG", full: "Minas Gerais" },
-  { short: "PA", full: "Pará" },
-  { short: "PB", full: "Paraíba" },
-  { short: "PR", full: "Paraná" },
-  { short: "PE", full: "Pernambuco" },
-  { short: "PI", full: "Piauí" },
-  { short: "RJ", full: "Rio de Janeiro" },
-  { short: "RN", full: "Rio Grande do Norte" },
-  { short: "RS", full: "Rio Grande do Sul" },
-  { short: "RO", full: "Rondônia" },
-  { short: "RR", full: "Roraima" },
-  { short: "SC", full: "Santa Catarina" },
-  { short: "SP", full: "São Paulo" },
-  { short: "SE", full: "Sergipe" },
-  { short: "TO", full: "Tocantins" },
-];
 
 const Register = ({ title, Component }) => {
   // Client Form
