@@ -50,11 +50,11 @@ const UpdateDialog = ({
   const handleUpdateConfirm = () => {
     setClicked(true);
 
-    const refresh = data.map((el) => el.id !== updateId);
-
     axios
-      .put(updateURL, { installments: refresh })
-      .then((data) => {
+      .put(updateURL, { category })
+      .then(({ data: updated }) => {
+        const refresh = data.map((el) => (el.id === updateId ? updated : el));
+
         setData(refresh);
         setOpen(false);
         setClicked(false);
