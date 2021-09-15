@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from "react";
 import AppBar from "../common/AppBar";
 import { FormContext } from "../context";
-import cities from "./cities.json";
+import * as cities from "../common/cities";
 
 const update = (state, update) => update;
 const installment = ({ discount, total }) =>
@@ -83,9 +83,8 @@ const Register = ({ title, Component }) => {
   const [availableCities, setAvailableCities] = useReducer(update);
 
   useEffect(() => {
-    const availableCities = cities.filter((city) => state.short === city.state);
-    setAvailableCities(availableCities);
-    setCity(availableCities[0]);
+    setAvailableCities(cities[state.short]);
+    setCity(cities[state.short][0]);
   }, [state]);
 
   return (
