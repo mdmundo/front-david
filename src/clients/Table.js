@@ -277,18 +277,20 @@ const Table = ({ data: remoteData }) => {
           removeId,
         }}
       />
-      <UpdateDialog
-        {...{
-          data,
-          setData,
-          open: updateOpen,
-          setOpen: setUpdateOpen,
-          axios,
-          updateURL,
-          updateId,
-          updateItem,
-        }}
-      />
+      {updateItem && (
+        <UpdateDialog
+          {...{
+            data,
+            setData,
+            open: updateOpen,
+            setOpen: setUpdateOpen,
+            axios,
+            updateURL,
+            updateId,
+            updateItem,
+          }}
+        />
+      )}
     </>
   );
 };
