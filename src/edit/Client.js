@@ -195,6 +195,13 @@ const UpdateDialog = ({
         </DialogContent>
         <DialogActions>
           <Button
+            onClick={handleUpdateConfirm}
+            disabled={clicked}
+            color="default"
+          >
+            {clicked ? "Aguarde..." : "Confirmar"}
+          </Button>
+          <Button
             autoFocus
             onClick={() => {
               setOpen(false);
@@ -202,13 +209,6 @@ const UpdateDialog = ({
             color="primary"
           >
             Cancelar
-          </Button>
-          <Button
-            onClick={handleUpdateConfirm}
-            disabled={clicked}
-            color="default"
-          >
-            {clicked ? "Aguarde..." : "Confirmar"}
           </Button>
         </DialogActions>
       </Dialog>
