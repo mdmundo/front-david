@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { FormContext } from "../context";
-import DatePicker from "./DatePicker";
+import DatePicker from "../common/DatePicker";
 import { CepMask, CnpjMask, CpfMask } from "./Masks";
 
 const Client = () => {
