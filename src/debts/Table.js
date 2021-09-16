@@ -66,7 +66,7 @@ const Table = ({ data: remoteData }) => {
       label: "Valor da Parcela",
       options: {
         customBodyRender: (value, tableMeta, updateValue) =>
-          currencyBrlFormatWithDots(value[0].amount),
+          currencyBrlFormatWithDots(value[0]?.amount || 0),
       },
     },
     {
