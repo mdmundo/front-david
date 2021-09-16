@@ -9,6 +9,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Slide from "@material-ui/core/Slide";
 import Message from "../common/Message";
+import { DateTimePicker } from "../common/DatePicker";
 
 const Transition = forwardRef((props, ref) => {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -80,6 +81,13 @@ const UpdateDialog = ({
               "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes.💔"
             }
           </DialogContentText>
+          <DateTimePicker
+            {...{
+              label: "Pagamento",
+              dateTime: date,
+              setDateTime: setDate,
+            }}
+          />
           <FormControlLabel
             control={
               <Checkbox
