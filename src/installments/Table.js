@@ -18,6 +18,7 @@ import {
   dateTimeFormat,
 } from "../common/utils";
 import RemoveDialog from "../common/RemoveDialog";
+import UpdateDialog from "../edit/Installment";
 import Record from "./Record";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +34,11 @@ const Table = ({ data: remoteData, id: debtId }) => {
 
   const [updateURL, setUpdateURL] = useState(`/debts/${debtId}`);
   const [removeId, setRemoveId] = useState();
-  const [open, setOpen] = useState(false);
+  const [removeOpen, setRemoveOpen] = useState(false);
+
+  const [updateId, setUpdateId] = useState();
+  const [updateItem, setUpdateItem] = useState();
+  const [updateOpen, setUpdateOpen] = useState(false);
 
   const [record, setRecord] = useState(false);
   const [recordURL, setRecordURL] = useState(false);
@@ -146,7 +151,16 @@ const Table = ({ data: remoteData, id: debtId }) => {
                   className={classes.icon}
                   color="textSecondary"
                   edge="start"
-                  disabled
+                  onClick={() => {
+                    const [, paid, , , date, record] = tableMeta.rowData;
+                    console.log(
+                      "🚀 ~ file: Table.js ~ line 156 ~ Table ~ data",
+                      data
+                    );
+                    setUpdateId(value);
+                    setUpdateItem({ paid, date, record });
+                    setUpdateOpen(true);
+                  }}
                 >
                   <EditIcon />
                 </IconButton>
@@ -160,7 +174,7 @@ const Table = ({ data: remoteData, id: debtId }) => {
                   edge="end"
                   onClick={() => {
                     setRemoveId(value);
-                    setOpen(true);
+                    setRemoveOpen(true);
                   }}
                 >
                   <DeleteForeverIcon />
@@ -229,11 +243,23 @@ const Table = ({ data: remoteData, id: debtId }) => {
         {...{
           data,
           setData,
-          open,
-          setOpen,
+          open: removeOpen,
+          setOpen: setRemoveOpen,
           axios,
           updateURL,
           removeId,
+        }}
+      />
+      <UpdateDialog
+        {...{
+          data,
+          setData,
+          open: updateOpen,
+          setOpen: setUpdateOpen,
+          axios,
+          updateURL,
+          updateId,
+          updateItem,
         }}
       />
       <Record {...{ open: record, setOpen: setRecord, url: recordURL }} />
