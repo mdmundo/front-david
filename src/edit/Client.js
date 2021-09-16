@@ -35,15 +35,13 @@ const UpdateDialog = ({
   const [resultOpen, setResultOpen] = useState(false);
   const [updatedSuccessfully, setDeletedSuccessfully] = useState(false);
 
-  const [category, setCategory] = useState(updateItem.category);
-  const [branch, setBranch] = useState(updateItem.branch);
-  const [taxing, setTaxing] = useState(updateItem.taxing);
-  const [address, setAddress] = useState(updateItem.address);
-  const [state, setState] = useState(
-    states.find((el) => el.short === updateItem.state)
-  );
-  const [city, setCity] = useState(updateItem.city);
-  const [postal, setPostal] = useState(updateItem.postal);
+  const [category, setCategory] = useState();
+  const [branch, setBranch] = useState();
+  const [taxing, setTaxing] = useState();
+  const [address, setAddress] = useState();
+  const [state, setState] = useState();
+  const [city, setCity] = useState();
+  const [postal, setPostal] = useState();
 
   const [cities, setCities] = useState();
 
@@ -80,9 +78,20 @@ const UpdateDialog = ({
   };
 
   useEffect(() => {
-    setCities(state && staticCities[state.short]);
-    setCity(state && staticCities[state.short][0]);
-  }, [state]);
+    if (updateItem) {
+      setCategory(updateItem.category);
+      setBranch(updateItem.branch);
+      setTaxing(updateItem.taxing);
+      setAddress(updateItem.address);
+      setState(states.find((el) => el.short === updateItem.state));
+
+      setCities(staticCities[updateItem.state]);
+      setCity(
+        staticCities[updateItem.state].find((el) => el.city === updateItem.city)
+      );
+      setPostal(updateItem.postal);
+    }
+  }, [updateItem]);
 
   return (
     <>
@@ -100,7 +109,6 @@ const UpdateDialog = ({
               "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes.💔"
             }
           </DialogContentText>
-
           <FormControl fullWidth>
             <InputLabel>Categoria</InputLabel>
             <Select
@@ -145,6 +153,8 @@ const UpdateDialog = ({
               value={state}
               onChange={({ target: { value } }) => {
                 setState(value);
+                setCities(staticCities[state.short]);
+                setCity(staticCities[state.short][0]);
               }}
               renderValue={({ full }) => full}
             >
