@@ -153,8 +153,8 @@ const UpdateDialog = ({
               value={state}
               onChange={({ target: { value } }) => {
                 setState(value);
-                setCities(staticCities[state.short]);
-                setCity(staticCities[state.short][0]);
+                setCities(staticCities[value.short]);
+                setCity(staticCities[value.short][0]);
               }}
               renderValue={({ full }) => full}
             >
