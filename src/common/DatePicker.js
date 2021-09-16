@@ -11,6 +11,7 @@ const DatePicker = ({ label, date, setDate }) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
       <KeyboardDatePicker
+        fullWidth
         cancelLabel="Cancelar"
         ampm={false}
         format="dd/MM/yyyy"
@@ -28,6 +29,7 @@ const TimePicker = ({ label, time, setTime }) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
       <KeyboardTimePicker
+        fullWidth
         cancelLabel="Cancelar"
         ampm={false}
         label={label}
@@ -44,6 +46,7 @@ const DateTimePicker = ({ label, dateTime, setDateTime }) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
       <KeyboardDateTimePicker
+        fullWidth
         cancelLabel="Cancelar"
         ampm={false}
         format="dd/MM/yyyy' às 'HH:mm"

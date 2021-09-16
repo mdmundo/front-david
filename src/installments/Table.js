@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ReceiptIcon from "@material-ui/icons/Receipt";
+import ErrorIcon from "@material-ui/icons/Error";
 import Avatar from "@material-ui/core/Avatar";
 
 import AppContext from "../context";
@@ -18,6 +19,7 @@ import {
   dateTimeFormat,
 } from "../common/utils";
 import RemoveDialog from "../common/RemoveDialog";
+import UpdateDialog from "../edit/Installment";
 import Record from "./Record";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +35,11 @@ const Table = ({ data: remoteData, id: debtId }) => {
 
   const [updateURL, setUpdateURL] = useState(`/debts/${debtId}`);
   const [removeId, setRemoveId] = useState();
-  const [open, setOpen] = useState(false);
+  const [removeOpen, setRemoveOpen] = useState(false);
+
+  const [updateId, setUpdateId] = useState();
+  const [updateItem, setUpdateItem] = useState();
+  const [updateOpen, setUpdateOpen] = useState(false);
 
   const [record, setRecord] = useState(false);
   const [recordURL, setRecordURL] = useState(false);
@@ -92,32 +98,38 @@ const Table = ({ data: remoteData, id: debtId }) => {
         print: false,
         searchable: false,
         customBodyRender: (value, tableMeta, updateValue) => (
-          <Tooltip title="Ver">
-            <IconButton
-              className={classes.icon}
-              color="textSecondary"
-              edge="start"
-              disabled={!value}
-              onClick={() => {
-                setRecordURL(
-                  value
-                    ? `${url}${value.formats?.medium?.url || value.url}`
-                    : false
-                );
-                setRecord(true);
-              }}
-            >
-              <Avatar
-                variant="rounded"
-                src={
-                  value
-                    ? `${url}${value.formats?.thumbnail?.url || value.url}`
-                    : false
-                }
+          <Tooltip title={value ? "Abrir" : "Sem Comprovante"}>
+            {value ? (
+              <IconButton
+                className={classes.icon}
+                component="a"
+                href={`${url}${
+                  value.formats?.large?.url ||
+                  value.formats?.medium?.url ||
+                  value.formats?.small?.url ||
+                  value.formats?.thumbnail?.url ||
+                  value.url
+                }`}
+                target="_blank"
+                color="textSecondary"
+                edge="start"
               >
-                <ReceiptIcon />
+                <Avatar
+                  variant="rounded"
+                  src={
+                    value && value.mime.includes("image")
+                      ? `${url}${value.formats?.thumbnail?.url || value.url}`
+                      : false
+                  }
+                >
+                  <ReceiptIcon />
+                </Avatar>
+              </IconButton>
+            ) : (
+              <Avatar variant="rounded">
+                <ErrorIcon />
               </Avatar>
-            </IconButton>
+            )}
           </Tooltip>
         ),
       },
@@ -146,7 +158,12 @@ const Table = ({ data: remoteData, id: debtId }) => {
                   className={classes.icon}
                   color="textSecondary"
                   edge="start"
-                  disabled
+                  onClick={() => {
+                    const [, paid, , , date, record] = tableMeta.rowData;
+                    setUpdateId(value);
+                    setUpdateItem({ paid, date, record });
+                    setUpdateOpen(true);
+                  }}
                 >
                   <EditIcon />
                 </IconButton>
@@ -160,7 +177,7 @@ const Table = ({ data: remoteData, id: debtId }) => {
                   edge="end"
                   onClick={() => {
                     setRemoveId(value);
-                    setOpen(true);
+                    setRemoveOpen(true);
                   }}
                 >
                   <DeleteForeverIcon />
@@ -229,11 +246,23 @@ const Table = ({ data: remoteData, id: debtId }) => {
         {...{
           data,
           setData,
-          open,
-          setOpen,
+          open: removeOpen,
+          setOpen: setRemoveOpen,
           axios,
           updateURL,
           removeId,
+        }}
+      />
+      <UpdateDialog
+        {...{
+          data,
+          setData,
+          open: updateOpen,
+          setOpen: setUpdateOpen,
+          axios,
+          updateURL,
+          updateId,
+          updateItem,
         }}
       />
       <Record {...{ open: record, setOpen: setRecord, url: recordURL }} />
