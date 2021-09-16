@@ -36,13 +36,28 @@ const UpdateDialog = ({
   const [date, setDate] = useState();
   const [record, setRecord] = useState();
 
+  const [fileObjects, setFileObjects] = useState([]);
+
   const handleUpdateConfirm = () => {
+    // Current bug: upload file is working but, not with paid and date values.
+    // in order to update these values, don't upload any file.
+    // I'm gonna try two-steps operation with axios
     setClicked(true);
+    const updates = {
+      installments: [...data, { id: updateId, paid, date }],
+    };
+    const stringifiedUpdates = JSON.stringify(updates);
+    const updateIndex = updates.installments.findIndex(
+      (el) => el.id === updateId
+    );
+    const [file] = fileObjects;
+    const form = new FormData();
+    form.append("data", stringifiedUpdates);
+    if (file)
+      form.append(`files.installments[${updateIndex}].record`, file, file.name);
 
     axios
-      .put(updateURL, {
-        installments: [...data, { id: updateId, paid, date, record }],
-      })
+      .put(updateURL, form)
       .then(({ data: { installments } }) => {
         setData(installments);
         setOpen(false);
@@ -95,7 +110,12 @@ const UpdateDialog = ({
                 />
               </Grid>
               <Grid item xs={12}>
+                {/* See theme override to replace black with grey */}
                 <DropzoneArea
+                  fileObjects={fileObjects}
+                  onChange={(loadedFiles) => {
+                    setFileObjects(loadedFiles);
+                  }}
                   showPreviews={true}
                   showPreviewsInDropzone={false}
                   filesLimit={1}
