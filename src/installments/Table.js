@@ -153,10 +153,6 @@ const Table = ({ data: remoteData, id: debtId }) => {
                   edge="start"
                   onClick={() => {
                     const [, paid, , , date, record] = tableMeta.rowData;
-                    console.log(
-                      "🚀 ~ file: Table.js ~ line 156 ~ Table ~ data",
-                      data
-                    );
                     setUpdateId(value);
                     setUpdateItem({ paid, date, record });
                     setUpdateOpen(true);

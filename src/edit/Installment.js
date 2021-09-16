@@ -41,10 +41,6 @@ const UpdateDialog = ({
         installments: [...data, { id: updateId, paid, date, record }],
       })
       .then(({ data: { installments } }) => {
-        console.log(
-          "🚀 ~ file: Installment.js ~ line 44 ~ .then ~ installments",
-          installments
-        );
         setData(installments);
         setOpen(false);
         setClicked(false);
