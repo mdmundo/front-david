@@ -14,6 +14,7 @@ import FindInPageIcon from "@material-ui/icons/FindInPage";
 import AppContext from "../context";
 import { percentFormat, currencyBrlFormatWithDots } from "../common/utils";
 import RemoveDialog from "../common/RemoveDialog";
+import UpdateDialog from "../edit/Debt";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -28,7 +29,12 @@ const Table = ({ data: remoteData }) => {
 
   const [removeURL, setRemoveURL] = useState();
   const [removeId, setRemoveId] = useState();
-  const [open, setOpen] = useState(false);
+  const [removeOpen, setRemoveOpen] = useState(false);
+
+  const [updateURL, setUpdateURL] = useState();
+  const [updateId, setUpdateId] = useState();
+  const [updateItem, setUpdateItem] = useState();
+  const [updateOpen, setUpdateOpen] = useState(false);
 
   const { axios } = useContext(AppContext);
 
@@ -115,7 +121,13 @@ const Table = ({ data: remoteData }) => {
                 <IconButton
                   className={classes.icon}
                   color="textSecondary"
-                  disabled
+                  onClick={() => {
+                    const [note] = tableMeta.rowData;
+                    setUpdateURL(`/debts/${value}`);
+                    setUpdateId(value);
+                    setUpdateItem({ note });
+                    setUpdateOpen(true);
+                  }}
                 >
                   <EditIcon />
                 </IconButton>
@@ -130,7 +142,7 @@ const Table = ({ data: remoteData }) => {
                   onClick={() => {
                     setRemoveURL(`/debts/${value}`);
                     setRemoveId(value);
-                    setOpen(true);
+                    setRemoveOpen(true);
                   }}
                 >
                   <DeleteForeverIcon />
@@ -195,7 +207,27 @@ const Table = ({ data: remoteData }) => {
       />
       <RemoveDialog
         deleteMessage="Deseja remover este débito permanentemente? Você não será capaz de desfazer esta ação."
-        {...{ data, setData, open, setOpen, axios, removeURL, removeId }}
+        {...{
+          data,
+          setData,
+          open: removeOpen,
+          setOpen: setRemoveOpen,
+          axios,
+          removeURL,
+          removeId,
+        }}
+      />
+      <UpdateDialog
+        {...{
+          data,
+          setData,
+          open: updateOpen,
+          setOpen: setUpdateOpen,
+          axios,
+          updateURL,
+          updateId,
+          updateItem,
+        }}
       />
     </>
   );
