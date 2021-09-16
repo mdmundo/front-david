@@ -1,4 +1,5 @@
 import { useState, useEffect, forwardRef } from "react";
+import { DropzoneArea } from "material-ui-dropzone";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -88,6 +89,15 @@ const UpdateDialog = ({
               setDateTime: setDate,
             }}
           />
+                <DropzoneArea
+                  showPreviews={true}
+                  showPreviewsInDropzone={false}
+                  filesLimit={1}
+                  useChipsForPreview
+                  showAlerts={false}
+                  dropzoneText="Arraste e solte um arquivo aqui ou clique"
+                  previewText="Arquivo selecionado"
+                />
           <FormControlLabel
             control={
               <Checkbox
