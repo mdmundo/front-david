@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Slide from "@material-ui/core/Slide";
+import Grid from "@material-ui/core/Grid";
 import Message from "../common/Message";
 import { DateTimePicker } from "../common/DatePicker";
 
@@ -77,18 +78,23 @@ const UpdateDialog = ({
       >
         <DialogTitle>Editar Registro</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            {
-              "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes.💔"
-            }
-          </DialogContentText>
-          <DateTimePicker
-            {...{
-              label: "Pagamento",
-              dateTime: date,
-              setDateTime: setDate,
-            }}
-          />
+          <>
+            <DialogContentText>
+              {
+                "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes.💔"
+              }
+            </DialogContentText>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <DateTimePicker
+                  {...{
+                    label: "Pagamento",
+                    dateTime: date,
+                    setDateTime: setDate,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <DropzoneArea
                   showPreviews={true}
                   showPreviewsInDropzone={false}
@@ -98,18 +104,23 @@ const UpdateDialog = ({
                   dropzoneText="Arraste e solte um arquivo aqui ou clique"
                   previewText="Arquivo selecionado"
                 />
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                checked={paid}
-                onChange={({ target: { checked } }) => {
-                  setPaid(checked);
-                }}
-              />
-            }
-            label="Pago"
-          />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={paid}
+                      onChange={({ target: { checked } }) => {
+                        setPaid(checked);
+                      }}
+                    />
+                  }
+                  label="Pago"
+                />
+              </Grid>
+            </Grid>
+          </>
         </DialogContent>
         <DialogActions>
           <Button
