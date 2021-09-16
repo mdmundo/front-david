@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 // Demo: https://material-ui.com/components/grid/
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ReceiptIcon from "@material-ui/icons/Receipt";
+import ErrorIcon from "@material-ui/icons/Error";
 import Avatar from "@material-ui/core/Avatar";
 
 import AppContext from "../context";
@@ -97,32 +98,38 @@ const Table = ({ data: remoteData, id: debtId }) => {
         print: false,
         searchable: false,
         customBodyRender: (value, tableMeta, updateValue) => (
-          <Tooltip title="Ver">
-            <IconButton
-              className={classes.icon}
-              color="textSecondary"
-              edge="start"
-              disabled={!value}
-              onClick={() => {
-                setRecordURL(
-                  value
-                    ? `${url}${value.formats?.medium?.url || value.url}`
-                    : false
-                );
-                setRecord(true);
-              }}
-            >
-              <Avatar
-                variant="rounded"
-                src={
-                  value
-                    ? `${url}${value.formats?.thumbnail?.url || value.url}`
-                    : false
-                }
+          <Tooltip title={value ? "Abrir" : "Sem Comprovante"}>
+            {value ? (
+              <IconButton
+                className={classes.icon}
+                component="a"
+                href={`${url}${
+                  value.formats?.large?.url ||
+                  value.formats?.medium?.url ||
+                  value.formats?.small?.url ||
+                  value.formats?.thumbnail?.url ||
+                  value.url
+                }`}
+                target="_blank"
+                color="textSecondary"
+                edge="start"
               >
-                <ReceiptIcon />
+                <Avatar
+                  variant="rounded"
+                  src={
+                    value && value.mime.includes("image")
+                      ? `${url}${value.formats?.thumbnail?.url || value.url}`
+                      : false
+                  }
+                >
+                  <ReceiptIcon />
+                </Avatar>
+              </IconButton>
+            ) : (
+              <Avatar variant="rounded">
+                <ErrorIcon />
               </Avatar>
-            </IconButton>
+            )}
           </Tooltip>
         ),
       },
