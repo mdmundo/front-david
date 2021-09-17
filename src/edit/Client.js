@@ -11,6 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Slide from "@material-ui/core/Slide";
+import Grid from "@material-ui/core/Grid";
 import Message from "../common/Message";
 import { CepMask, CnpjMask, CpfMask } from "../register/Masks";
 import * as staticCities from "../common/cities";
@@ -109,99 +110,115 @@ const UpdateDialog = ({
               "Para atualizar o registro faça as modificações e confirme. Se algum dado não está disponível para modificação, delete o registro e crie outro com dados diferentes.💔"
             }
           </DialogContentText>
-          <FormControl fullWidth>
-            <InputLabel>Categoria</InputLabel>
-            <Select
-              value={category}
-              onChange={({ target: { value } }) => {
-                setCategory(value);
-              }}
-            >
-              {categories.map((category, i) => (
-                <MenuItem key={i} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            label="Ramo de Atividade"
-            value={branch}
-            onChange={({ target: { value } }) => {
-              setBranch(value);
-            }}
-            fullWidth
-          />
-          <FormControl fullWidth>
-            <InputLabel>Tributação</InputLabel>
-            <Select
-              value={taxing}
-              onChange={({ target: { value } }) => {
-                setTaxing(value);
-              }}
-            >
-              {taxes.map((tax, i) => (
-                <MenuItem key={i} value={tax}>
-                  {tax}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel>Unidade Federativa</InputLabel>
-            <Select
-              value={state}
-              onChange={({ target: { value } }) => {
-                setState(value);
-                setCities(staticCities[value.short]);
-                setCity(staticCities[value.short][0]);
-              }}
-              renderValue={({ full }) => full}
-            >
-              {states.map((state, i) => (
-                <MenuItem key={i} value={state}>
-                  {state.full}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          {cities && city && (
-            <FormControl fullWidth>
-              <InputLabel>Município</InputLabel>
-              <Select
-                value={city}
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Categoria</InputLabel>
+                <Select
+                  value={category}
+                  onChange={({ target: { value } }) => {
+                    setCategory(value);
+                  }}
+                >
+                  {categories.map((category, i) => (
+                    <MenuItem key={i} value={category}>
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Ramo de Atividade"
+                value={branch}
                 onChange={({ target: { value } }) => {
-                  setCity(value);
+                  setBranch(value);
                 }}
-                renderValue={({ city }) => city}
-              >
-                {cities.map((city, i) => (
-                  <MenuItem key={i} value={city}>
-                    {city.city}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-          <TextField
-            label="Endereço"
-            value={address}
-            onChange={({ target: { value } }) => {
-              setAddress(value);
-            }}
-            fullWidth
-          />
-          <TextField
-            InputProps={{
-              inputComponent: CepMask,
-            }}
-            label="CEP"
-            value={postal}
-            onChange={({ target: { value } }) => {
-              setPostal(value);
-            }}
-            fullWidth
-          />
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Tributação</InputLabel>
+                <Select
+                  value={taxing}
+                  onChange={({ target: { value } }) => {
+                    setTaxing(value);
+                  }}
+                >
+                  {taxes.map((tax, i) => (
+                    <MenuItem key={i} value={tax}>
+                      {tax}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Unidade Federativa</InputLabel>
+                <Select
+                  value={state}
+                  onChange={({ target: { value } }) => {
+                    setState(value);
+                    setCities(staticCities[value.short]);
+                    setCity(staticCities[value.short][0]);
+                  }}
+                  renderValue={({ full }) => full}
+                >
+                  {states.map((state, i) => (
+                    <MenuItem key={i} value={state}>
+                      {state.full}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            {cities && city && (
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel>Município</InputLabel>
+                  <Select
+                    value={city}
+                    onChange={({ target: { value } }) => {
+                      setCity(value);
+                    }}
+                    renderValue={({ city }) => city}
+                  >
+                    {cities.map((city, i) => (
+                      <MenuItem key={i} value={city}>
+                        {city.city}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <TextField
+                label="Endereço"
+                value={address}
+                onChange={({ target: { value } }) => {
+                  setAddress(value);
+                }}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                InputProps={{
+                  inputComponent: CepMask,
+                }}
+                label="CEP"
+                value={postal}
+                onChange={({ target: { value } }) => {
+                  setPostal(value);
+                }}
+                fullWidth
+              />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button
