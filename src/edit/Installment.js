@@ -121,21 +121,19 @@ const UpdateDialog = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                <MuiThemeProvider theme={theme}>
-                  <DropzoneArea
-                    fileObjects={fileObjects}
-                    onChange={(loadedFiles) => {
-                      setFileObjects(loadedFiles);
-                    }}
-                    showPreviews={true}
-                    showPreviewsInDropzone={false}
-                    filesLimit={1}
-                    useChipsForPreview
-                    showAlerts={false}
-                    dropzoneText="Arraste e solte um arquivo aqui ou clique"
-                    previewText="Arquivo selecionado"
-                  />
-                </MuiThemeProvider>
+                <DropzoneArea
+                  fileObjects={fileObjects}
+                  onChange={(loadedFiles) => {
+                    setFileObjects(loadedFiles);
+                  }}
+                  showPreviews={true}
+                  showPreviewsInDropzone={false}
+                  filesLimit={1}
+                  useChipsForPreview
+                  showAlerts={false}
+                  dropzoneText="Arraste e solte um arquivo aqui ou clique"
+                  previewText="Arquivo selecionado"
+                />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
