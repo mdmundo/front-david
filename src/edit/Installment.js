@@ -10,8 +10,22 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Slide from "@material-ui/core/Slide";
 import Grid from "@material-ui/core/Grid";
+import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Message from "../common/Message";
 import { DateTimePicker } from "../common/DatePicker";
+
+const theme = createTheme({
+  overrides: {
+    MuiDropzoneArea: {
+      textContainer: {
+        color: "rgba(0, 0, 0, 0.54)",
+      },
+      icon: {
+        color: "rgba(0, 0, 0, 0.54)",
+      },
+    },
+  },
+});
 
 const Transition = forwardRef((props, ref) => {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -107,20 +121,21 @@ const UpdateDialog = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                {/* See theme override to replace black with grey */}
-                <DropzoneArea
-                  fileObjects={fileObjects}
-                  onChange={(loadedFiles) => {
-                    setFileObjects(loadedFiles);
-                  }}
-                  showPreviews={true}
-                  showPreviewsInDropzone={false}
-                  filesLimit={1}
-                  useChipsForPreview
-                  showAlerts={false}
-                  dropzoneText="Arraste e solte um arquivo aqui ou clique"
-                  previewText="Arquivo selecionado"
-                />
+                <MuiThemeProvider theme={theme}>
+                  <DropzoneArea
+                    fileObjects={fileObjects}
+                    onChange={(loadedFiles) => {
+                      setFileObjects(loadedFiles);
+                    }}
+                    showPreviews={true}
+                    showPreviewsInDropzone={false}
+                    filesLimit={1}
+                    useChipsForPreview
+                    showAlerts={false}
+                    dropzoneText="Arraste e solte um arquivo aqui ou clique"
+                    previewText="Arquivo selecionado"
+                  />
+                </MuiThemeProvider>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
