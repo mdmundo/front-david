@@ -39,17 +39,14 @@ const UpdateDialog = ({
   const [fileObjects, setFileObjects] = useState([]);
 
   const handleUpdateConfirm = () => {
-    // Current bug: upload file is working but, not with paid and date values.
-    // in order to update these values, don't upload any file.
-    // I'm gonna try two-steps operation with axios
     setClicked(true);
+    const updateIndex = data.findIndex((el) => el.id === updateId);
     const updates = {
-      installments: [...data, { id: updateId, paid, date }],
+      installments: data.map((el, i) =>
+        i === updateIndex ? { ...el, paid, date } : el
+      ),
     };
     const stringifiedUpdates = JSON.stringify(updates);
-    const updateIndex = updates.installments.findIndex(
-      (el) => el.id === updateId
-    );
     const [file] = fileObjects;
     const form = new FormData();
     form.append("data", stringifiedUpdates);
