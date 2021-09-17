@@ -107,7 +107,6 @@ const UpdateDialog = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                {/* See theme override to replace black with grey */}
                 <DropzoneArea
                   fileObjects={fileObjects}
                   onChange={(loadedFiles) => {
