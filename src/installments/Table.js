@@ -169,21 +169,6 @@ const Table = ({ data: remoteData, id: debtId }) => {
                 </IconButton>
               </Tooltip>
             </Grid>
-            <Grid item>
-              <Tooltip title="Deletar">
-                <IconButton
-                  className={classes.icon}
-                  color="textSecondary"
-                  edge="end"
-                  onClick={() => {
-                    setRemoveId(value);
-                    setRemoveOpen(true);
-                  }}
-                >
-                  <DeleteForeverIcon />
-                </IconButton>
-              </Tooltip>
-            </Grid>
           </Grid>
         ),
       },
